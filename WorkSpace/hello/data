@@ -1,0 +1,8 @@
+form 태그의 입력값을 서버에 전송하고, form 태그를 통해 전송된 데이터에 접근
+
+1. HttpServletRequest 사용 -> 잘 사용되지 않는다. 사용빈도 △
+
+2. @RequestParam 사용 -> @RequestParam 생략가능 사용빈도 ★
+
+3. VO(Value Object) 사용빈도 ★★★
+
