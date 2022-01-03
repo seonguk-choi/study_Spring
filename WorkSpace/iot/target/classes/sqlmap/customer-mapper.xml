@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customer.mapper">
+
+	<!-- resultType : 조회한 결과를 반환하는 데이터타입 -->
+	<select id="list" resultType="customer.CustomerVO">
+		select rownum no, c.* from (select * from customer order by name) c
+	</select>
+	<select id="detail" resultType="customer.CustomerVO">
+		select * from customer where id = #{id}
+	</select>
+</mapper>
