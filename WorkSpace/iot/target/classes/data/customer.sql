@@ -32,7 +32,35 @@ end;
 
 select rownum no, c.* from (select * from customer order by name) c;
 
+insert into customer(name, gender, email, phone)
+values ('user1' , '남', 'user1@hanul.com', '010-1234-5678');
+
+insert into customer(name, gender, email, phone)
+values ('user'||SEQ_CUSTOMER.nextval , '남', 'user'||SEQ_CUSTOMER.nextval||'hanul.com', '010-1234-5678');
+
+insert into customer(name, gender, email, phone)
+values ('user'||SEQ_CUSTOMER.nextval , '여', 'user'||SEQ_CUSTOMER.nextval||'hanul.com', '010-1234-5678');
+
+select * from customer;
+
+-- 사원 목록 조회
+
+select e.*, (select department_name from departments
+					where e.department_id = department_id) department_name,
+					(select job_title from jobs 
+					where e.job_id = job_id) job_titile
+		from employees e
+		order by employee_id
+
+-- 사원 상제 조회
+
+select e.*, d.department_name, j.job_title 
+from employees e inner join departments d
+on e.department_id = d.department_id
+inner join jobs j
+on e.job_id = j.job_id
+where employee_id = 102
 
 
-
-
+        
+        

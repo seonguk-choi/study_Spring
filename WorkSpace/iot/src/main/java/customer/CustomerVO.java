@@ -1,13 +1,8 @@
 package customer;
 
 public class CustomerVO {
-	private int		id, no 		;
-	private String  name	;
-	private String  gender 	;
-	private String  email 	;
-	private String  phone	;
-	
-	
+	private int id, no;
+	private String name, gender, email, phone;
 	
 	public int getNo() {
 		return no;
@@ -47,4 +42,4 @@ public class CustomerVO {
 	}
 	
 	
-}               
+}
