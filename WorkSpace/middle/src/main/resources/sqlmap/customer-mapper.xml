@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customer.mapper">
+	
+<!-- 고객 정보 삭제 -->
+	<delete id="delete">
+		delete from customer
+		where id = #{id}
+	</delete>
+	
+	<!-- 고객 정보 수정 -->
+	<update id="update">
+		update customer set name=#{name} gender=#{gender}, phone=#{phone}
+		where id = #{id}
+	</update>
+	
+	<!-- 신규 고객 등록 -->
+	<insert id="insert">
+		insert into customer (name, gender, email, phone)
+		values (#{name}, #{gender}, #{email}, #{phone}) 
+	</insert>
+	
+	<select id="detail" resultType="customer.CustomerVO">
+		select * from customer
+		where id = #{id}
+	</select>
+
+
+	<!-- resultType : 조회한 결과를 반환하는 데이터타입 -->
+	<select id="list" resultType="customer.CustomerVO">
+		select rownum no, c.* from (select * from customer order by name desc) c
+	</select>
+	<!-- mapper 내 SQL 구문 입력시 ';' 이 없도록 작성해야 함. -->
+
+</mapper>
