@@ -91,5 +91,26 @@ values ('master', '관리자', 'master');
 
 commit;
 
-        
+select * from member;
+
+-- 게시판 테이블 생성
+create table notice (
+id  number,
+title   varchar2(300) not null,
+content varchar2(4000) not null,
+writer varchar2(50) not null,
+writedate date default sysdate,
+readcnt number default 0,
+filename varchar2(300),
+filepath varchar2(500),
+constraint notice_id_pk primary key(id),
+constraint notice_writer_fk foreign key(writer) REFERENCES member (id)
+      ON DELETE CASCADE
+);
+
+-- 외래키 cascade 추가
+alter table notice add constraiforeign key(writer) references member(id) on update cascade;
+
+drop table notice;    
+    
         

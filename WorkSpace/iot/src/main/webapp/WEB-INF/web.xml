@@ -51,5 +51,8 @@
 		<url-pattern>/*</url-pattern> <!-- 모든 요청에 대해서 이 필터를 거치게 함 -->
 	</filter-mapping>
 	
+	<session-config>
+		<session-timeout>60</session-timeout><!-- 분단위 -->
+	</session-config>
 
 </web-app>

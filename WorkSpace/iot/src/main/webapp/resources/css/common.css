@@ -71,6 +71,8 @@ input[type=radio] {
 	vertical-align: middle;
 }
 
+.center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+
 
 /* width 값을 class 로 등록하여 관리 */
 .w-pct80 {width : 80%}

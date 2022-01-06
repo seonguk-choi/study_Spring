@@ -30,6 +30,8 @@ begin
 end;
 / -- 끝 슬래시까지 적시해야 한다.
 
+
+--회원 등록
 select rownum no, c.* from (select * from customer order by name) c;
 
 insert into customer(name, gender, email, phone)
@@ -40,6 +42,8 @@ values ('user'||SEQ_CUSTOMER.nextval , '남', 'user'||SEQ_CUSTOMER.nextval||'han
 
 insert into customer(name, gender, email, phone)
 values ('user'||SEQ_CUSTOMER.nextval , '여', 'user'||SEQ_CUSTOMER.nextval||'hanul.com', '010-1234-5678');
+
+commit;
 
 select * from customer;
 
@@ -61,6 +65,33 @@ inner join jobs j
 on e.job_id = j.job_id
 where employee_id = 102
 
+-- membertable 생성
+drop table member;
 
+create table member (
+   id		    varchar2(100),
+   name		    varchar2(20),
+   pw	    	varchar2(20),
+   addr		    varchar2(200),
+   post		    varchar2(10),
+   tel 		    varchar2(20),
+   gender   	varchar2(3) default '여',
+   email		varchar2(100),
+   birth   	  	varchar2(30),
+   naver     	varchar2(100),
+   kakao     	varchar2(100),
+constraint member_id_pk primary key(id)
+);
+
+insert into member (id, name, pw)
+values ('hanul', '한울', 'hanul');
+
+insert into member (id, name, pw)
+values ('master', '관리자', 'master');
+
+commit;
+
+select * from member;
         
+    
         

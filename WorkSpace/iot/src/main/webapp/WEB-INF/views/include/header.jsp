@@ -36,10 +36,18 @@
 		</ul>
 		<div style='position: absolute; right: 0; top: 20px; margin-right:200px;'>
 			<ul>
-				<li>
-					<a class='btn-fill' href='login'>로그인</a>
-					<a class='btn-fill' href='member'>회원가입</a>
-				</li>
+				<c:if test="${empty loginInfo}">
+					<li>					
+						<a class='btn-fill' href='login'>로그인</a>
+						<a class='btn-fill' href='member'>회원가입</a>
+					</li>
+				</c:if>
+				<c:if test="${!empty loginInfo}">
+					<li>
+						<Strong>${loginInfo.name}</Strong> 님	
+						<a class='btn-fill' href='logout'>로그아웃</a>
+					</li>
+				</c:if>					
 			</ul>	
 		</div>
 	</div>
