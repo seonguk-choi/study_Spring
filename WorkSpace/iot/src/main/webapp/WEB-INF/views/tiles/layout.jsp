@@ -28,6 +28,7 @@
 <link rel="icon" type="image/x-icon" href="imgs/hanul.ico"/>
 <link rel='stylesheet' type='text/css' href='css/common.css?v=<%=new Date().getTime() %>'/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src='js/common.js'></script>
 </head>
 <body>
 	<div id='wrap'>

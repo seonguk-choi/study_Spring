@@ -12,7 +12,14 @@ public class MemberVO {
 	private String  birth   ;
 	private String  naver   ;  
 	private String  kakao   ;
+	private String  admin	;
 	
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
 	public String getId() {
 		return id;
 	}

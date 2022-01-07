@@ -92,6 +92,37 @@ values ('master', '관리자', 'master');
 commit;
 
 select * from member;
-        
+
+-- 게시판 테이블 생성
+create table notice (
+id  number,
+title   varchar2(300) not null,
+content varchar2(4000) not null,
+writer varchar2(50) not null,
+writedate date default sysdate,
+readcnt number default 0,
+filename varchar2(300),
+filepath varchar2(500),
+constraint notice_id_pk primary key(id),
+constraint notice_writer_fk foreign key(writer) REFERENCES member (id)
+      ON DELETE CASCADE
+);
+
+-- 외래키 cascade 추가
+alter table notice add constraiforeign key(writer) references member(id) on update cascade;
+
+drop table notice;    
+    
+--notice 테이블의 pk인 id 컬럼에 적용할 시퀀스
+create sequence seq_notice
+start with 1 INCREMENT by 1;
+
+insert into notice (id, title, content, writer)
+values (seq_notice.nextval,'첫 번째 공지글 입니다.' , '관리자가 작성한 공지사항입니다.' , 'master');
+
+commit;
+
+select * from notice;    
+    
     
         

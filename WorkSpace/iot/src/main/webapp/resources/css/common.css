@@ -14,7 +14,13 @@ a:link, a:visited {
 	color : #000;
 }
 
+ul {list-style: none; padding: 0;}
+
 #content {min-width: 1280px; min-height: 650px; height: 100%; padding :20px 0;}
+
+.left {text-align: left;}
+
+.right {text-align: right;}
 
 img {
 	vertical-align: middle;	/* 세로축 가운데 정렬 */	
@@ -63,15 +69,41 @@ a:hover { cursor: pointer;}
 input {
 	height: 22px;
 	padding: 3px 5px;
-	font-size: 15px;	
+	font-size: 15px;
+	border: 1px solid #b0b0b0; 	
 }
+
+input[name=title], textarea[name=content] {
+	width: calc(100% - 24px);
+}
+
+textarea {
+	border: 1px solid #b0b0b0; 
+	font-size: 15px;
+	padding: 10px;
+	height: 250px;
+	resize: none;
+}
+
+input[type=file] {display: none;}
+
 input[type=radio] {
 	width: 18px;
 	margin: 0 5px 3px;
 	vertical-align: middle;
 }
 
+.file-img {width: 20px;}
+
 .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+
+#list-top {
+	padding: 20px 10%;
+}
+
+#list-top ul {margin: 0; display: flex;}
+#list-top ul li * {vertical-align: middle;}
+#list-top ul li {margin-right: 3px;}
 
 
 /* width 값을 class 로 등록하여 관리 */

@@ -113,4 +113,39 @@ alter table notice add constraiforeign key(writer) references member(id) on upda
 
 drop table notice;    
     
+--notice 테이블의 pk인 id 컬럼에 적용할 시퀀스
+create sequence seq_notice
+start with 1 INCREMENT by 1;
+
+insert into notice (id, title, content, writer)
+values (seq_notice.nextval,'첫 번째 공지글 입니다.' , '관리자가 작성한 공지사항입니다.' , 'master');
+
+commit;
+
+select * from notice;    
+
+-- 작성자를 member name으로 하기
+select n.id, n.title, n.content, m.name writer, n.writedate, n.readcnt, n.filename, n.filepath from notice n inner join member m
+on n.writer = m.id;
+
+select rownum no, n.*, (select name from member where id = n.writer ) name 
+from (select * from notice order by id) n
+order by no desc;
+
+--member admin 컬럼 추가
+alter table member add admin varchar2(3) default 'n';
+
+desc member;
+
+update member
+set admin = 'y'
+where id = 'master';
+
+insert into member(id, name, pw, admin)
+values ('admin', '운영자', 'admin', 'y');
+
+select * from member;
+
+commit;
+    
         
