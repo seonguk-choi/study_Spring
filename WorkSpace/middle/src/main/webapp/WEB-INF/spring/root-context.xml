@@ -7,8 +7,8 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:component-scan base-package="customer" />
-
 	<import resource="classpath:data/default.xml" />
+	
 	<bean id="multipartResolver"
 	     class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8"/>

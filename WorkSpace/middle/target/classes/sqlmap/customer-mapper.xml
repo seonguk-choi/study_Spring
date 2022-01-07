@@ -30,7 +30,11 @@
 	<!-- resultType : 조회한 결과를 반환하는 데이터타입 -->
 	<select id="list" resultType="customer.CustomerVO">
 		select rownum no, c.* from (select * from customer order by name desc) c
+		where name like '%'||#{search, jdbcType=VARCHAR}||'%' or email like '%'||#{search, jdbcType=VARCHAR}||'%' or phone like '%'||#{search, jdbcType=VARCHAR}||'%'
 	</select>
 	<!-- mapper 내 SQL 구문 입력시 ';' 이 없도록 작성해야 함. -->
+	
+
+
 
 </mapper>

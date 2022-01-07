@@ -14,8 +14,8 @@ public class CustomerDAO  {
 	public void customer_insert(CustomerVO vo) {
 
 	}
-	public List<CustomerVO> customer_list() {
-		return sql.selectList("customer.mapper.list");
+	public List<CustomerVO> customer_list(String search) {
+		return sql.selectList("customer.mapper.list", search);
 	}
 
 	public CustomerVO customer_detail(int id) {

@@ -85,11 +85,14 @@ public class CustomerController {
 	@ResponseBody
 	@RequestMapping ("/list.cu")
 	public void list(HttpServletRequest req , HttpServletResponse res) throws IOException {
-		List<CustomerVO> list = service.customer_list();
+		//name, email, phone, 어떤 검색어를 넣어도 가능
+		String search = req.getParameter("search");
+		System.out.println(search);
+		List<CustomerVO> list = service.customer_list(search);
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html");
 		PrintWriter writer = res.getWriter();
-		writer.println( gson.toJson(list) );
+		writer.println( gson.toJson(list));
 	}
 }
