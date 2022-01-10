@@ -19,4 +19,13 @@ public interface MemberService {
 	
 	//아이디 중복확인 Read
 	boolean member_id_check(String id);
+	
+	//소셜 회원 정보 존재여부 Read
+	boolean member_socail_email(MemberVO vo);
+	
+	//소셜 회원 정보 신규 저장 Create
+	boolean member_socail_insert(MemberVO vo);
+	
+	//소셜 회원 정보 변경 저장 Update
+	boolean member_social_update(MemberVO vo);
 }

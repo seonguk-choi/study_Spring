@@ -147,5 +147,8 @@ values ('admin', '운영자', 'admin', 'y');
 select * from member;
 
 commit;
+
+--테이블 삭제 이전으로 이동
+flashback table member to before drop;
     
         

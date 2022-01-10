@@ -123,6 +123,32 @@ values (seq_notice.nextval,'첫 번째 공지글 입니다.' , '관리자가 작
 commit;
 
 select * from notice;    
-    
+
+-- 작성자를 member name으로 하기
+select n.id, n.title, n.content, m.name writer, n.writedate, n.readcnt, n.filename, n.filepath from notice n inner join member m
+on n.writer = m.id;
+
+select rownum no, n.*, (select name from member where id = n.writer ) name 
+from (select * from notice order by id) n
+order by no desc;
+
+--member admin 컬럼 추가
+alter table member add admin varchar2(3) default 'n';
+
+desc member;
+
+update member
+set admin = 'y'
+where id = 'master';
+
+insert into member(id, name, pw, admin)
+values ('admin', '운영자', 'admin', 'y');
+
+select * from member;
+
+commit;
+
+--테이블 삭제 이전으로 이동
+flashback table member to before drop;
     
         

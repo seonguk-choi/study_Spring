@@ -39,6 +39,24 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 
+	@Override
+	public boolean member_socail_email(MemberVO vo) {
+		
+		return dao.member_socail_email(vo);
+	}
+
+	@Override
+	public boolean member_socail_insert(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean member_social_update(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }

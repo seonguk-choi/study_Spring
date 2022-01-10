@@ -8,6 +8,7 @@
 </head>
 <body>
 <h3>신규 공지글</h3>
+
 <!-- 
 파일 첨부하여 submint 하는 경우 
 1. method는 post로 지정

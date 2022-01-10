@@ -13,7 +13,22 @@ public class MemberVO {
 	private String  naver   ;  
 	private String  kakao   ;
 	private String  admin	;
+	private String  social_type	;
+	private String  social_email;
 	
+	
+	public String getSocial_type() {
+		return social_type;
+	}
+	public void setSocial_type(String social_type) {
+		this.social_type = social_type;
+	}
+	public String getSocial_email() {
+		return social_email;
+	}
+	public void setSocial_email(String social_email) {
+		this.social_email = social_email;
+	}
 	public String getAdmin() {
 		return admin;
 	}
