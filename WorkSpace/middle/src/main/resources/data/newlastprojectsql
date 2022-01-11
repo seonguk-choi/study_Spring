@@ -1,0 +1,24 @@
+select rownum no, c.* from (select * from customer order by name desc) c
+where gender = '여';
+
+-- name, email, phone 에 66이 들어가는 회원, 6이 들어가는 회원
+select rownum no, c.* from (select * from customer order by name desc) c
+where name like '%6%' or email like '%6%' or phone like '%6%';
+
+-- 검색이 null 일 때
+select rownum no, c.* from (select * from customer order by name desc) c
+where name like '%'||null||'%' or email like '%'||null||'%' or phone like '%'||null||'%';
+
+create table android_member (
+id          varchar2(50),
+pw          varchar2(50) not null,
+addr        varchar2(550),
+tel         varchar2(50),
+gender      varchar2(3) default '남',
+filepath    varchar2(3000),
+constraint android_id_pk primary key(id),
+constraint ch2 check(gender in ('남' , '여'))
+);
+
+insert into android_member (id, pw) values ('aaa', 'aaa');
+commit;

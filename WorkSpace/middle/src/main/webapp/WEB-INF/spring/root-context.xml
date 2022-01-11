@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan base-package="customer" />
+	<context:component-scan base-package="customer, common, member" />
 	<import resource="classpath:data/default.xml" />
 	
 	<bean id="multipartResolver"

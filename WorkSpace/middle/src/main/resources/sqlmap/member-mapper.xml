@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.mapper">
+
+	<!-- 로그인 -->
+	<select id="login" resultType="member.MemberVO">
+		select * from android_member  where id = #{id} and pw = #{pw}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insert">
+		insert into android_member
+		values (#{id}, #{pw}, 
+				#{addr, jdbcType=VARCHAR}, 
+				#{tel, jdbcType=VARCHAR}, 
+				#{gender, jdbcType=VARCHAR}, 
+				#{filepath,jdbcType=VARCHAR})
+	</insert>
+</mapper>
