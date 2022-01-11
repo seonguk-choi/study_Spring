@@ -36,7 +36,7 @@ img.social{width : 200px; height: 45px;}
 					<!-- onkeypress를 통해 Enter 키를 눌렀을 때 go_login() 동작 -->
             </div>
             <a class="btn-fill" onclick="go_login()">로그인</a>
-            <a class="btn-fill" href="join">회원가입</a>
+            <a class="btn-fill" href="member">회원가입</a>
          </div>
          <div class="join">
             <div>Hello, Guest!</div>

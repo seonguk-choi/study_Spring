@@ -68,7 +68,7 @@ public class MemberController {
 		//&redirect_uri=CALLBACK_URL
 		
 		StringBuffer url = new StringBuffer("https://nid.naver.com/oauth2.0/authorize?response_type=code");
-		url.append("&clieng_id=").append(naver_client_id);
+		url.append("&client_id=").append(naver_client_id);
 		url.append("&state=").append(state);
 		url.append("&redirect_uri=http://localhost/iot/navercallback");
 		
@@ -86,7 +86,7 @@ public class MemberController {
 	public String navercallback(@RequestParam(required = false) String code, String state, @RequestParam(required = false) String error, HttpSession session) {
 		
 		//상태 토큰이 일치하지 않거나 콜백 실패시 오류가 발생시 토큰 발급 불가(정상처리가 되지 않음)
-		if(state.equals(session.getAttribute("state")) || error != null) {
+		if(!state.equals(session.getAttribute("state")) || error != null) {
 			// state 값이 맞지 않거나 error가 발생해도 토큰 발급 불가
 			return "redirect:/";
 		
@@ -135,7 +135,7 @@ public class MemberController {
 //			  }
 //		}
 		
-		if(json.getString("result").endsWith("00")) {
+		if(json.getString("resultcode").endsWith("00")) {
 			json = json.getJSONObject("response");
 			
 			
@@ -152,8 +152,10 @@ public class MemberController {
 			//회원정보 변경(Update)
 			if (service.member_socail_email(vo)) {
 				service.member_social_update(vo);
+				session.setAttribute("loginInfo", vo);
 			} else {
 				service.member_socail_insert(vo);
+				session.setAttribute("loginInfo", vo);
 			}
 			
 			//로그인시 home 이동
@@ -162,4 +164,16 @@ public class MemberController {
 				
 		return "";
 	}
+	
+	
+	//회원가입 페이지 요청
+	@RequestMapping("/member")
+	public String join(HttpSession session){
+		session.setAttribute("category", "join");
+		
+		return "member/join";
+	}
+	
+	
+	
 }

@@ -59,12 +59,30 @@ a.btn-fill {
 	color: #fff;
 }
 
+a.btn-fill-s {
+	font-size: 13px;
+	font-weight: bold;
+	padding: 1px 10px;
+	border: 1px solid #c4dafc;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px #022d72;
+	background: #b1cdfa;
+	color : #0000cd;
+}
+
 a.btn-empty {
 	background-color: #fff;
 	color: #3367d6;
 }
 
 a:hover { cursor: pointer;}
+
+input {
+	height: 22px;
+	padding: 3px 5px;
+	font-size: 15px;
+	border: 1px solid #b0b0b0;	
+}
 
 input {
 	height: 22px;

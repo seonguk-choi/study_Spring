@@ -44,30 +44,30 @@ public class CommonService {
 	}
 	
 	// API를 요청하는 메소드
-//	try {
-//	      URL url = new URL(apiURL);
-//	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-//	      con.setRequestMethod("GET");
-//	      int responseCode = con.getResponseCode();
-//	      BufferedReader br;
-//	      System.out.print("responseCode="+responseCode);
-//	      if(responseCode==200) { // 정상 호출
-//	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//	      } else {  // 에러 발생
-//	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-//	      }
-//	      String inputLine;
-//	      StringBuffer res = new StringBuffer();
-//	      while ((inputLine = br.readLine()) != null) {
-//	        res.append(inputLine);
-//	      }
-//	      br.close();
-//	      if(responseCode==200) {
-//	        out.println(res.toString());
-//	      }
-//	    } catch (Exception e) {
-//	      System.out.println(e);
-//	    }
+	//	try {
+	//	      URL url = new URL(apiURL);
+	//	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	//	      con.setRequestMethod("GET");
+	//	      int responseCode = con.getResponseCode();
+	//	      BufferedReader br;
+	//	      System.out.print("responseCode="+responseCode);
+	//	      if(responseCode==200) { // 정상 호출
+	//	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	//	      } else {  // 에러 발생
+	//	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	//	      }
+	//	      String inputLine;
+	//	      StringBuffer res = new StringBuffer();
+	//	      while ((inputLine = br.readLine()) != null) {
+	//	        res.append(inputLine);
+	//	      }
+	//	      br.close();
+	//	      if(responseCode==200) {
+	//	        out.println(res.toString());
+	//	      }
+	//	    } catch (Exception e) {
+	//	      System.out.println(e);
+	//	    }
 	
 	public String requestAPI(StringBuffer url) {
 		String result = null;

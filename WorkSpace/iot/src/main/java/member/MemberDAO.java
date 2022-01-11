@@ -41,19 +41,19 @@ public class MemberDAO implements MemberService{
 
 	@Override
 	public boolean member_socail_email(MemberVO vo) {
-		return sql.selectOne("member.mapper.social_email", vo);
+		
+		return (Integer) sql.selectOne("member.mapper.social_email", vo) == 0 ? false : true;
 	}
 
 	@Override
 	public boolean member_socail_insert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return sql.insert("member.mapper.social_insert", vo) == 0 ? false :  true;
 	}
 
 	@Override
 	public boolean member_social_update(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		return sql.update("member.mapper.social_update", vo) == 0 ? false : true;
 	}
 
 

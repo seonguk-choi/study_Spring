@@ -47,14 +47,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean member_socail_insert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		// 소셜회원정보 신규저장Create
+		return dao.member_socail_insert(vo);
 	}
 
 	@Override
 	public boolean member_social_update(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		// 소셜회원 정보 변경 저장 Update
+		return dao.member_social_update(vo);
 	}
 
 
