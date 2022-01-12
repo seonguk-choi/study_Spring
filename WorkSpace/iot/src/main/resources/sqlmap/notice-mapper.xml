@@ -5,7 +5,7 @@
 		select rownum no, n.*, (select name from 
 								member where id = n.writer ) name 
 		from (select * from notice order by id) n
-		order by no desc 
+		order by no desc
 	</select>
 	<insert id="insert">
 		insert into notice (id, title, content, writer, filename, filepath) 

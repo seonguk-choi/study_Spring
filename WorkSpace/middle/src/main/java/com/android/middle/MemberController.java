@@ -1,6 +1,8 @@
 package com.android.middle;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -33,7 +35,7 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping("/join")
-	public String text(HttpServletRequest req, HttpServletResponse res, HttpSession session) {
+	public void text(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws IOException {
 		
 		
 		String tempVo = req.getParameter("vo");
@@ -41,6 +43,12 @@ public class MemberController {
 		
 		MultipartRequest mulReq = (MultipartRequest) req;
 		MultipartFile file = mulReq.getFile("file");
+		int result = 0;
+		
+		req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html");
+		PrintWriter writer = res.getWriter();
 		
 		if(file != null) {
 			System.out.println("Null 아님 파일 들어옴");
@@ -53,25 +61,33 @@ public class MemberController {
 			//vo = gson.fromJson("VO", MemberVO.class);
 		
 			vo.setFilepath(server_path + path);
-			dao.member_insert(vo);
+			result = dao.member_insert(vo);
+			
+			
+			
 				
 		} else {
 			System.out.println("Null 파일이 안들어 옴");
 		}
-		return null;
+		writer.println(result);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/login")
-	public String  login(HttpServletRequest req, HttpServletResponse res){
+	public void  login(HttpServletRequest req, HttpServletResponse res) throws IOException{
 		MemberVO vo = new MemberVO();
 		
-		vo.setId("aaa");
-		vo.setPw("aaa");
+		vo.setId(req.getParameter("id"));
+		vo.setPw(req.getParameter("pw"));
 		vo = dao.member_list(vo);
 		System.out.println(vo.getId());
 		
-		return null;
+		req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html");
+		PrintWriter writer = res.getWriter();
+		writer.println( gson.toJson(vo));
+		
 	}
 	
 }

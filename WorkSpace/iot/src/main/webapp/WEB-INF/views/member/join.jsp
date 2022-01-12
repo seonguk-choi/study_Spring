@@ -11,6 +11,9 @@
 <style type="text/css">
 table tr td {text-align: left;}
 .addr input {margin-bottom: 5px;}
+.valid, .invalid{font-size: 13px; font-weight: bold; font-style: italic;}
+.valid{color : green;}
+.invalid{color : red;}
 </style>
 </head>
 <body>
@@ -27,20 +30,23 @@ table tr td {text-align: left;}
 			<tr>
 				<th>*아이디</th>
 				<td>
-					<input type="text" name="id"/>
+					<input type="text" name="id" class='chk'/>
 					<a class='btn-fill-s' id='btn-id'>아이디 중복확인</a>
+					<div class='valid'>아이디를 입력하세요(영문소문자, 숫자만 입력 가능)</div>
 				</td>
 			</tr>
 			<tr>
 				<th>*비밀번호</th>
 				<td>
-					<input type="password" name="pw"/>
+					<input type="password" name="pw" class='chk'/>
+					<div class='valid'>비밀번호를 입력하세요(영문대/소문자, 숫자를 모두 포함)</div>
 				</td>
 			</tr>
 			<tr>
 				<th>*비밀번호확인</th>
 				<td>
-					<input type="password" name="pw_ck"/>
+					<input type="password" name="pw_ck" class='chk'/>
+					<div class='valid'>비밀번호를 확인하세요</div>
 				</td>
 			</tr>
 			<tr>
@@ -53,14 +59,15 @@ table tr td {text-align: left;}
 			<tr>
 				<th>*이메일</th>
 				<td>
-					<input type="text" name="email"/>
+					<input type="text" name="email" class='chk'/>
+					<div class='valid'>이메일을 입력하세요</div>
 				</td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
-					<input type="text" name="birth"/>
-					<a id='delete' style="display: none; color : red; position : relative; , right : 40px; cursor: pointer;"><i class="fas fa-minus-circle"></i></a>
+					<input type="text" name="birth" readonly/>
+					<a id='delete' style="display: none; color : red; position : relative; right : 40px; cursor : pointer;"><i class="fas fa-minus-circle"></i></a>
 				</td>
 			</tr>
 			<tr>
@@ -75,17 +82,18 @@ table tr td {text-align: left;}
 				<th>주소</th>
 				<td class='addr'>
 					<a class='btn-fill-s' onclick='daum_post()'>우편번호찾기</a>
-					<input type="text" name="post" class="w-px80"/><br/>
-					<input type="text" name="addr" /><br/>
+					<input type="text" name="post" class="w-px80" readonly/><br/>
+					<input type="text" name="addr" readonly/><br/>
 					<input type="text" name="addr" />
 				</td>
 			</tr>
 		</table>
 		<div class='btnSet'>
 			<a class='btn-fill' onclick="go_join()">회원가입</a>
-			<a class='btn-empty' onclick="<c:url value="/"/>">가입취소</a>
+			<a class='btn-empty' href='<c:url value="/"/>'>가입취소</a>
 		</div>
 	</form>
+<script type="text/javascript" src="js/join_check.js"></script>	
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>	
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -109,13 +117,12 @@ function daum_post(){
 	        
 	        //name 이 addr 인 태그에 값을 할당
 	        $('[name=addr]').eq(0).val(addr);	        
-
 	        $('[name=addr]').eq(1).focus();        	       
-	        $('[name=post]').attr('readonly', true);
-	        $('[name=addr]').eq(0).attr('readonly', true);
 	    }
 	}).open();	
 }
+
+
 
 $( function() {
 	//나이 제한을 두기 위한 처리 (만 13세 이상만 가입)
@@ -135,9 +142,67 @@ $( function() {
   	  
   });
   
-} );
+});
+
+//생일이 선택되면 기호 나타남
+$('[name=birth]').change(function(){
+	$('#delete').css('display', 'inline');
+});
+
+// #delete 클릭시 생일 값 삭제 되면서 기호가 안 나타남
+$('#delete').click(function(){
+	$('[name=birth]').val('');
+	$('#delete').css('display', 'none');
+});
+
+//class='chk' 에 대한 유효성 검사
+$('.chk').on('keyup', function(e){
+	// id 입력후에 아이디 중복확인 버튼 실행
+	if($(this).attr('name') == 'id'){
+		if(e.keyCode == 13) id_check();
+		else $(this).removeClass('checked');
+	}
+	
+	var data = join.tag_status ($(this)); //입력하고 있는 tag의 값을 data에 할당
+	
+	// 반환된 결과 값(data) 엔 code와 desc 가 있음.
+	$(this).siblings('div').text(data.desc).removeClass().addClass(data.code);
+	
+});
+
+$('#btn-id').on('click', function(){
+	id_check();
+});
+
+function id_check(){
+	var $id = $('[name=id]');
+	
+	//class가 checked 가 있다면 리턴
+	if($id.hasClass('checked')) return;
+	
+	var data = join.tag_status($id);
+	
+	if(data.code == 'invalid') {
+		alert('아이디 중복확인 불필요\n' + data.desc);	
+		$id.focus();
+		return;
+	} else { //DB에서 id 값을 가져와 중복확인
+		$.ajax({
+			url : 'id_check'
+			, data : {id:$id.val()}
+			, success : function(response){//true : 사용 가능, false : 중복된 아이디
+				var data = join.id_usable(response); //성공시 값이 있으면
+				$id.siblings('div').text(data.desc).removeClass().addClass(data.code);
+				$id.addClass('checked');
+			}
+			, error : function(req, text){
+				alert(text + ";" + teq.status);
+			}
+		});
+	}
+}
+
 
 </script>	
-
 </body>
 </html>

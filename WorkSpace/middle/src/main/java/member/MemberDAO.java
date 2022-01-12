@@ -14,8 +14,8 @@ public class MemberDAO {
 	@Autowired @Qualifier("hanul") private SqlSession sql;
 	
 	//회원가입
-	public void member_insert(MemberVO vo) {
-		sql.insert("member.mapper.insert", vo);
+	public int member_insert(MemberVO vo) {
+		return sql.insert("member.mapper.insert", vo);
 	}
 	
 	//회원 정보가져오기

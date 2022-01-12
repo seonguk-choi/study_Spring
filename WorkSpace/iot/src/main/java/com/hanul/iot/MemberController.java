@@ -175,5 +175,13 @@ public class MemberController {
 	}
 	
 	
+	//아이디 중복체크
+	@ResponseBody
+	@RequestMapping("/id_check")
+	public boolean id_check(String id) {
+		return service.member_id_check(id);
+	}
+	
+	
 	
 }
