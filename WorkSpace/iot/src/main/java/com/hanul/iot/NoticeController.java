@@ -69,4 +69,24 @@ public class NoticeController {
 		
 	}
 	
+	//공지사항 상세화면 요청
+	@RequestMapping("/detail.no")
+	public String detail(int id, Model model) {
+		//선택한 공지사항 정보 조회
+		service.notice_readcnt(id);		
+		
+		model.addAttribute("vo", service.notice_detail(id));
+		model.addAttribute("crlf", "\r\n");
+		
+		return "notice/detail";
+	}
+	
+	//첨부파일 다운
+	@RequestMapping("/download.no")
+	public String download(int id) {
+		NoticeVO notice = service.notice_detail(id);
+		//파일 업, 다운 처리를 다른 게시판에서 하기 위해서 CommonService 에 작업
+		return "";
+	}
+	
 }

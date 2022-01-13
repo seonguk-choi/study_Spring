@@ -12,7 +12,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean member_join(MemberVO vo) {
-		return false;
+		return dao.member_join(vo);
 	}
 
 	@Override

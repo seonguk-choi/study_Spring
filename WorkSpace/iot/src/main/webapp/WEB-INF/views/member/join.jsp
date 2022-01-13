@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <style type="text/css">
 table tr td {text-align: left;}
 .addr input {margin-bottom: 5px;}
@@ -202,6 +202,46 @@ function id_check(){
 	}
 }
 
+function go_join() {
+	if($('[name=name]').val() == ''){
+		//alert('이름을 입력하세요.');
+		$('[name=name]').focus;
+		return;	
+	} 
+	//중복확인을 하여 이미 사용 중인 경우
+	if($('[name=id]').hasClass('checked')){
+		if(($('[name=id]').siblings('div').hasClass('invalid'))){
+			alert('회원가입 불가! \n' + join.id.unUsable.desc);
+			$('[name=id]').focus;
+			return;
+		}	
+	} else {
+		//중복확인 하지 않은 경우
+		if(!item_check($('[name=id]'))) return;
+		else {
+			alert('회원가입 불가 \n' + join.id.valid.desc)
+			$('[name=id]').focus();
+			return;
+		}
+	}
+	if(!item_check($('[name=pw]'))) return;
+	if(!item_check($('[name=pw_ck]'))) return;
+	if(!item_check($('[name=email]'))) return;
+	
+	$('form').submit();
+}
+
+//유효성 검사 항목을 체크할 함수
+function item_check(item){
+	var data = join.tag_status(item);
+	if(data.code == 'invalid'){
+		alert('회원가입 불가 \n' + data.desc);
+		item.focus();
+		return false;
+	} else {
+		return true;	
+	}
+}
 
 </script>	
 </body>

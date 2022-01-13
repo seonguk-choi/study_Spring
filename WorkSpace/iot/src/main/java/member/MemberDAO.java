@@ -13,7 +13,7 @@ public class MemberDAO implements MemberService{
 
 	@Override
 	public boolean member_join(MemberVO vo) {
-		return false;
+		return sql.insert("member.mapper.join", vo) == 1 ?  true : false ;
 	}
 
 	@Override

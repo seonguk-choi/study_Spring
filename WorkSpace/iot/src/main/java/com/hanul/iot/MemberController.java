@@ -182,6 +182,9 @@ public class MemberController {
 		return service.member_id_check(id);
 	}
 	
-	
-	
+	@RequestMapping("/join")
+	public String join(MemberVO vo) {
+		service.member_join(vo);
+		return "redirect:/";
+	}
 }

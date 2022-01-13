@@ -30,10 +30,12 @@
 		<c:forEach var="vo" items="${list}">
 			<tr>
 				<td>${vo.no}</td>
-				<td>${vo.title}</td>
+				<td class='left'>
+					<a href='detail.no?id=${vo.id}'>${vo.title}</a>
+				</td>
 				<td>${vo.name}</td>
 				<td>${vo.writedate}</td>
-				<td>${vo.filename}</td>
+				<td>${empty vo.filename ? '' : '<img src="imgs/attach.png" class="file-img"/>'}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

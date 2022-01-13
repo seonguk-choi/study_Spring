@@ -25,7 +25,7 @@ public class NoticeDAO implements NoticeService{
 
 	@Override
 	public NoticeVO notice_detail(int id) {
-		return null;
+		return sql.selectOne("notice.mapper.detail", id);
 	}
 
 	@Override
@@ -35,8 +35,7 @@ public class NoticeDAO implements NoticeService{
 
 	@Override
 	public void notice_readcnt(int id) {
-		// TODO Auto-generated method stub
-		
+		sql.update("readcnt", id);
 	}
 
 

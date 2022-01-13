@@ -109,7 +109,7 @@ constraint notice_writer_fk foreign key(writer) REFERENCES member (id)
 );
 
 -- 외래키 cascade 추가
-alter table notice add constraiforeign key(writer) references member(id) on update cascade;
+alter table notice add constraint foreign key(writer) references member(id) on update cascade;
 
 drop table notice;    
     
