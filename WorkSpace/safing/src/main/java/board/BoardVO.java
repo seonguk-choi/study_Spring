@@ -10,6 +10,7 @@ public class BoardVO {
 	private int	   board_read_cnt	;   
 	private int    board_like_cnt	;   
 	private String board_kinds   	;
+	
 	public int getBoard_id() {
 		return board_id;
 	}
@@ -64,7 +65,5 @@ public class BoardVO {
 	public void setBoard_kinds(String board_kinds) {
 		this.board_kinds = board_kinds;
 	} 
-	
-	
 	
 }
