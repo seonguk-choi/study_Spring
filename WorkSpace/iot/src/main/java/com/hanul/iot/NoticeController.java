@@ -1,8 +1,11 @@
 package com.hanul.iot;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,10 +86,70 @@ public class NoticeController {
 	
 	//첨부파일 다운
 	@RequestMapping("/download.no")
-	public String download(int id) {
-		NoticeVO notice = service.notice_detail(id);
+	public String download(int id, HttpSession session, HttpServletResponse response) {
 		//파일 업, 다운 처리를 다른 게시판에서 하기 위해서 CommonService 에 작업
+		NoticeVO notice = service.notice_detail(id);
+		
+		//해당 공지글의 첨부파일 정보를 DB에서 파일을 다운로드
+		common.fileDonwload(notice.getFilename(), notice.getFilepath(), session, response);
+		
 		return "";
 	}
 	
+	//공지글 수정
+	@RequestMapping("/modify.no")
+	public String modify(int id, Model model) {
+		model.addAttribute("vo", service.notice_detail(id));
+		return "notice/modify";
+	}
+	
+	//공지글 삭제
+	@RequestMapping("/delete.no")
+	public String delete(int id, HttpSession session) {
+		//첨부파일이 있는 글의 경우 디스크에서 첨부파일을 삭제
+		//공지글에 대한 모든 정보 조회
+		NoticeVO notice = service.notice_detail(id);
+		String uuid = session.getServletContext().getRealPath("resources")+ "/" + notice.getFilepath();
+		//파일명 또는 파일 경로가 있는지 판단(없지 않다면)
+		if(notice.getFilename() != null) {
+			// 디렉토리 접근 권한을 가진 File 개체를 통해 파일 위치 할당
+			File file = new File(uuid);
+			if( file.exists()) {
+				file.delete();
+			}
+		}
+		
+		service.notice_delete(id);
+		return "redirect:list.no";
+	}
+	
+	@RequestMapping("/update.no")
+	public String update(NoticeVO vo, MultipartFile file, HttpSession session) {
+		
+		//원래 공지글의 첨부파일 정보 조회해 온다.
+		NoticeVO notice = service.notice_detail(vo.getId());
+		String uuid = session.getServletContext().getRealPath("resources") + "/" + notice.getFilepath();
+		
+		//원래 파일이 있는 경우 삭제하고 파일 변경
+		if(!file.isEmpty()) {
+			//원래 첨부파일이 없는데 수정시 첨부되는 경우
+			vo.setFilename(file.getOriginalFilename());
+			vo.setFilename(common.fileupload("notice", file, session));
+			
+			//원래 첨부파일이 있었고 수정시 변경하여 첨부한 경우 - 원래 파일을 물리적 영역
+			//원래 첨부파일이 있는데 물리적인 디스크에서 해당 파일 삭제
+			if(notice.getFilename() != null) {
+				//파일 정보를 file 형태의 f변수에 할당
+				File f = new File(uuid);
+				
+				//기존 첨부파일이 있다면 삭제
+				if(f.exists()) f.delete();
+			}
+		} else {
+			//파일을 첨부하지 않은 경우
+		}
+		
+		service.notice_update(vo);
+		return "redirect:detail.no?id="+ vo.getId();
+	}
 }

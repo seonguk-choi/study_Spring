@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src='js/file_check.js'></script>
 </head>
 <body>
 <h3>신규 공지글</h3>
@@ -38,6 +39,7 @@
 					<input type="file" id='attach-file' name='file' />
 				</label>
 				<span id='file-name'></span>
+				<a id='delete-file' style='display: ${empty vo.filename ? "none" : "inline"}'><i class="fas fa-minus-circle"></i></a>
 			</td>
 		</tr>
 	</table>

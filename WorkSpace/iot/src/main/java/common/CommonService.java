@@ -2,18 +2,23 @@ package common;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -24,7 +29,7 @@ public class CommonService {
 		String resources = session.getServletContext().getRealPath("resources");
 		//D:\study_Spring\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\iot\resources		
 		
-		String folder = resources + "/upload" + "/" + category + "/"
+		String folder = resources + "/upload/" + category + "/"
 				+ new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 		
 		// D:\study_Spring\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\iot\resources
@@ -147,6 +152,49 @@ public class CommonService {
 			System.out.println(e);
 		}
 		return result;
+	}
+	
+	//파일 다운로드
+	public void fileDonwload(String filename, String filepath, HttpSession session, HttpServletResponse response) {
+		// 실제 파일 위치와 파일을 찾아 file이란 이름으로 관리
+		File file = new File(session.getServletContext().getRealPath("resources")
+				+ "/" + filepath);
+		
+		//파일의 형태 확인 (확장자를 통해 확인)
+		String mime = session.getServletContext().getMimeType(filename);
+		
+		//응답처리 setContentType()을 이용해
+		//클라이언트에 전송할 데이터 종류(Mime-Type) 지정
+		response.setContentType(mime);
+		
+		// 클라이언트에 파일을 첨부하여 쓰기 작업을 하는데 파일을 첨부하는 건
+		// header에 첨부파일 정보를 넘겨줘야 함.
+		// content-disposition : 응답 본문을 브라우저에 어떻게 표힐 할지 알려주는 헤더 
+		
+		try {
+			filename = URLEncoder.encode(filename, "utf-8").replaceAll("\\+", "%20");
+			
+			// '+' 문자를 공백(%20)으로 바꿈 : URL escape code != 아스키코드
+			response.setHeader("content-disposition", "attacthment; filename=" + filename);
+			
+			ServletOutputStream out = response.getOutputStream();
+			
+			//파일 쓰기위해 파일을 복하여 붙이는능
+			//FileCopyUtils를 사용하여 copy 메소드를 통해 파일 정보를 읽어들이기위해
+			//FileInputStream을 하여 file 을 읽고 쓰기 작업
+			//output out 처리
+			FileCopyUtils.copy(new FileInputStream(file), out);
+			
+			out.flush();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+		
+		
 	}
 	
 }

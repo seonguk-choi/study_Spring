@@ -21,4 +21,10 @@ public interface NoticeService {
     //공지글 조회시 조회수 증가 처리(U)
     void notice_readcnt(int id);
     
+    //공지글 수정
+    void notice_modify(NoticeVO vo);
+    
+    //공지글 삭제
+    void notice_delete(int id);
+    
 }

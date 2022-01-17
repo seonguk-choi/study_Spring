@@ -28,11 +28,22 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void notice_update(NoticeVO vo) {
+		dao.notice_update(vo);
 	}
 
 	@Override
 	public void notice_readcnt(int id) {
 		dao.notice_readcnt(id);
+	}
+
+	@Override
+	public void notice_delete(int id) {
+		dao.notice_delete(id);
+	}
+
+	@Override
+	public void notice_modify(NoticeVO vo) {
+
 	}
 
 

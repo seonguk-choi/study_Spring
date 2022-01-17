@@ -30,12 +30,24 @@ public class NoticeDAO implements NoticeService{
 
 	@Override
 	public void notice_update(NoticeVO vo) {
-		
+		sql.update("notice.mapper.update", vo);
 	}
 
 	@Override
 	public void notice_readcnt(int id) {
-		sql.update("readcnt", id);
+		sql.update("notice.mapper.readcnt", id);
+	}
+
+	@Override
+	public void notice_delete(int id) {
+		sql.delete("notice.mapper.delete", id);
+		
+	}
+
+	@Override
+	public void notice_modify(NoticeVO vo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

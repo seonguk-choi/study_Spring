@@ -44,6 +44,8 @@ table th, table td {
 
 table th { background-color: #f6f6f6}
 
+table tr td a:hover {font-weight: 700; color : red;}
+
 .btnSet { margin-top: 20px;}
 
 a.btn-fill, a.btn-empty {
