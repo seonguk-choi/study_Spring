@@ -6,6 +6,7 @@ public class MemberVO {
 	private String member_name	  	;
 	private int    member_age	 	;		
 	private String member_gender	;
+	private String member_phone     ;
 	private String member_admin		;
 	private String member_filename	;
 	private String member_filepath	;
@@ -39,6 +40,12 @@ public class MemberVO {
 	}
 	public void setMember_gender(String member_gender) {
 		this.member_gender = member_gender;
+	}
+	public String getMember_phone() {
+		return member_phone;
+	}
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
 	}
 	public String getMember_admin() {
 		return member_admin;
