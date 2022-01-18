@@ -42,7 +42,7 @@
 			<input type="hidden" name="attach"/>
 		</table>
 		<div class='btnSet'>
-			<a class='btn-fill' onclick='if(emptyCheck()) {$("form").submit}'>저장</a>
+			<a class='btn-fill' onclick=" if ( emptyCheck() ) { $('[name=attach]').val($('#file-name').text());  $('form').submit() }">저장</a>
 			<a class='btn-empty' href='detail.no?id=${vo.id}'>취소</a>
 		</div>
 	</form>

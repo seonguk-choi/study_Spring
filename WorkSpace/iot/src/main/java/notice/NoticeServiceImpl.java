@@ -46,6 +46,11 @@ public class NoticeServiceImpl implements NoticeService {
 
 	}
 
+	@Override
+	public NoticePage notice_list(NoticePage page) {
+		return dao.notice_list(page);
+	}
+
 
 
 

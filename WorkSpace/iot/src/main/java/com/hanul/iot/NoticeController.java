@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import common.CommonService;
 import member.MemberServiceImpl;
 import member.MemberVO;
+import notice.NoticePage;
 import notice.NoticeServiceImpl;
 import notice.NoticeVO;
 
@@ -28,19 +30,25 @@ public class NoticeController {
 	@Autowired private NoticeServiceImpl service;
 	@Autowired private MemberServiceImpl member;
 	@Autowired private CommonService common;
+	@Autowired private NoticePage page;
 	
 	//공지사항 글목록 화면 요청
 	@RequestMapping("/list.no")
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session, @RequestParam(defaultValue = "1") int curPage, Model model) {
 		//나중에 삭제
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("id", "admin");
 		map.put("pw", "admin");
 	    session.setAttribute("loginInfo", member.member_login(map));
 		
-		
 		session.setAttribute("category", "no");
-		model.addAttribute("list", service.notice_list());
+		//model.addAttribute("list", service.notice_list());
+		
+		//현재 페이지에 대한 정보를 담기 위한 처리
+		page.setCurPage(curPage);
+		
+		model.addAttribute("page", service.notice_list(page));
+		
 		return "notice/list"; 
 	}
 	
@@ -124,7 +132,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/update.no")
-	public String update(NoticeVO vo, MultipartFile file, HttpSession session) {
+	public String update(NoticeVO vo, String attach, MultipartFile file, HttpSession session) {
 		
 		//원래 공지글의 첨부파일 정보 조회해 온다.
 		NoticeVO notice = service.notice_detail(vo.getId());
@@ -134,7 +142,7 @@ public class NoticeController {
 		if(!file.isEmpty()) {
 			//원래 첨부파일이 없는데 수정시 첨부되는 경우
 			vo.setFilename(file.getOriginalFilename());
-			vo.setFilename(common.fileupload("notice", file, session));
+			vo.setFilepath(common.fileupload("notice", file, session));
 			
 			//원래 첨부파일이 있었고 수정시 변경하여 첨부한 경우 - 원래 파일을 물리적 영역
 			//원래 첨부파일이 있는데 물리적인 디스크에서 해당 파일 삭제
@@ -147,6 +155,18 @@ public class NoticeController {
 			}
 		} else {
 			//파일을 첨부하지 않은 경우
+			if(attach.isEmpty()) {
+				//원래 첨부된 파일이 있었는데 삭제한 경우
+				if(notice.getFilename() != null) {
+					//원래 첨부된 파일이 있다면 물리 디스크의 파일삭제
+					File f = new File(uuid);
+					if(f.exists()) f.delete();
+				}
+			} else {
+				//원래부터 첨부하지 않았고 수정시에도 첨부하지 않은 경우
+				vo.setFilename(notice.getFilename());
+				vo.setFilepath(notice.getFilepath());
+			}	
 		}
 		
 		service.notice_update(vo);

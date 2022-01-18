@@ -39,8 +39,19 @@
 	<delete id="update">
 		update notice set title =#{title}, content=#{content}, 
 						filename=#{filename, jdbcType=VARCHAR}, 
-						filepath = #{filepath, jdbc=VARCHAR}
+						filepath = #{filepath, jdbcType=VARCHAR}
 		where id = #{id}	
 	</delete>
 	
+	<!-- 공지글 총 목록수 -->
+	<select id="totalList" resultType="Integer">
+		select count(*) from notice
+	</select>
+	
+	<!-- 공지글 리스트 페이지 처리 -->
+	<select id="listpage" resultType="notice.NoticeVO">
+		select *
+		from ( select rownum no, n.*, (select name from member where id = n.writer) name from (select * from notice order by id) n order by no desc)
+		where no between #{beginList} and #{endList}
+	</select>
 </mapper>

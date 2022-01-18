@@ -9,6 +9,9 @@
 </head>
 <body>
 <h3>공지사항</h3>
+<form action="list.no" method="get">
+	<input type="hidden" name='curPage' value='1'/>
+</form>
 <div id='list-top'>
 	<ul>
 		<c:if test="${loginInfo.admin eq 'y' }">
@@ -27,7 +30,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="vo" items="${list}">
+		<c:forEach var="vo" items="${page.list}">
 			<tr>
 				<td>${vo.no}</td>
 				<td class='left'>
@@ -40,5 +43,9 @@
 		</c:forEach>
 	</tbody>
 </table>
+<!-- jsp 표준 include 를 사용하여 설정 버튼 형태로 동작하기 위해 div로 묶음 -->
+<div class='btnSet'>
+	<jsp:include page="/WEB-INF/views/include/page.jsp"/>
+</div>
 </body>
 </html>

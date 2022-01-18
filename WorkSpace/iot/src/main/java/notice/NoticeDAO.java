@@ -50,6 +50,19 @@ public class NoticeDAO implements NoticeService{
 		
 	}
 
+	@Override
+	public NoticePage notice_list(NoticePage page) {
+		//먼저 총 글의 개수를 구해야 페이지 처리 가능
+		int pagecnt = sql.selectOne("notice.mapper.totalList", page);
+		page.setTotalList(pagecnt);
+		
+		//전체글 조회
+		List<NoticeVO> list = sql.selectList("notice.mapper.listpage", page);
+		page.setList(list);
+		
+		return page;
+	}
+
 
 	
 	
