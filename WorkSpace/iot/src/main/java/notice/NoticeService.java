@@ -30,4 +30,6 @@ public interface NoticeService {
     //공지글 삭제
     void notice_delete(int id);
     
+    //답글 신규 저장
+    void notice_reply_insert(NoticeVO vo);    
 }

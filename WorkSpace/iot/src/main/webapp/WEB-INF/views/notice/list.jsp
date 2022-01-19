@@ -11,14 +11,32 @@
 <h3>공지사항</h3>
 <form action="list.no" method="get">
 	<input type="hidden" name='curPage' value='1'/>
+	<div id='list-top'>
+		<div>
+			<ul>
+				<li>
+					<select name='search' class='w-px90'>
+						<option value="all">전체</option>
+						<option value='title'>제목</option>
+						<option value='content'>내용</option>
+						<option value='writer'>작성자</option>
+					</select>
+				</li>
+				<li>
+					<input type="text" name='keyword' class='w-px300' value='${page.keyword}'>
+				</li>
+				<li>
+					<a class='btn-fill' onclick='$("form").submit()'>검색</a>
+				</li>
+			</ul>
+			<ul>
+				<c:if test="${loginInfo.admin eq 'y' }">
+					<li><a class='btn-fill' href='new.no'>글쓰기</a></li>
+				</c:if>
+			</ul>
+		</div>
+	</div>
 </form>
-<div id='list-top'>
-	<ul>
-		<c:if test="${loginInfo.admin eq 'y' }">
-			<li><a class='btn-fill' href='new.no'>글쓰기</a></li>
-		</c:if>
-	</ul>
-</div>
 <table>
 	<thead>
 		<tr>

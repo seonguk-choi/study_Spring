@@ -10,7 +10,21 @@ public class PageVO {
 	int beginList, endList; //각 페이지 시작, 끝 목록번호
 	int curBlock;			//현재 블럭
 	int beginPage, endPage; //각 블럭에 보여질 시작, 끝 페이지 번호
+	String search, keyword; //검색 조건, 검색어
 	
+	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getTotalList() {
 		return totalList;
 	}
@@ -43,10 +57,10 @@ public class PageVO {
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
 	}
-	public int getTotalBlokc() {
+	public int getTotalBlock() {
 		return totalBlock;
 	}
-	public void setTotalBlokc(int totalBlokc) {
+	public void setTotalBlock(int totalBlokc) {
 		this.totalBlock = totalBlokc;
 	}
 	public int getPageList() {

@@ -150,5 +150,36 @@ commit;
 
 --테이블 삭제 이전으로 이동
 flashback table member to before drop;
-    
         
+--공지글 추가
+
+--1. 더미테이블을 넣는 방법
+insert into notice(id, title, content, writer, filename, filepath)
+select seq_notice.nextval, title, content, writer, filename, filepath
+from notice;
+
+--2. loop로 하는 방법
+CREATE TRIGGER trg_notice
+    BEFORE INSERT ON notice
+    FOR EACH ROW
+BEGIN
+    SELECT seq_notice.NEXTVAL INTO :NEW.id FROM dual;
+END;
+
+begin
+for i in 1..700 loop
+insert into notice (title, content, writer)
+values ('a'||SEQ_NOTICE.nextval, 'a'||SEQ_NOTICE.nextval, 'admin');
+end loop;
+end;
+
+select * from notice
+order by 1 desc;  
+commit;
+
+-- 3배수인 id에 작성자를 관리자로 바꾸기 
+update notice
+set writer = 'master'
+where mod(id,3) = 0;
+
+commit;

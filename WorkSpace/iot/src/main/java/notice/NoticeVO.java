@@ -11,7 +11,27 @@ public class NoticeVO {
 	private int		readcnt	;	
 	private String	filename;
 	private String	filepath;
+	private int		root, step, indent;
 	
+	
+	public int getRoot() {
+		return root;
+	}
+	public void setRoot(int root) {
+		this.root = root;
+	}
+	public int getStep() {
+		return step;
+	}
+	public void setStep(int step) {
+		this.step = step;
+	}
+	public int getIndent() {
+		return indent;
+	}
+	public void setIndent(int indent) {
+		this.indent = indent;
+	}
 	public int getId() {
 		return id;
 	}

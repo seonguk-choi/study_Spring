@@ -63,6 +63,11 @@ public class NoticeDAO implements NoticeService{
 		return page;
 	}
 
+	@Override
+	public void notice_reply_insert(NoticeVO vo) {
+		sql.insert("notice.mappger.reply_insert", vo);
+	}
+
 
 	
 	

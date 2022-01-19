@@ -51,6 +51,11 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.notice_list(page);
 	}
 
+	@Override
+	public void notice_reply_insert(NoticeVO vo) {
+		dao.notice_reply_insert(vo);
+	}
+
 
 
 

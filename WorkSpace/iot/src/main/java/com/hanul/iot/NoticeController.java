@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,11 +35,11 @@ public class NoticeController {
 	
 	//공지사항 글목록 화면 요청
 	@RequestMapping("/list.no")
-	public String logout(HttpSession session, @RequestParam(defaultValue = "1") int curPage, Model model) {
+	public String logout(HttpSession session, @RequestParam(defaultValue = "1") int curPage, Model model, String search, String keyword) {
 		//나중에 삭제
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("id", "admin");
-		map.put("pw", "admin");
+		map.put("id", "hanul");
+		map.put("pw", "hanul");
 	    session.setAttribute("loginInfo", member.member_login(map));
 		
 		session.setAttribute("category", "no");
@@ -46,6 +47,8 @@ public class NoticeController {
 		
 		//현재 페이지에 대한 정보를 담기 위한 처리
 		page.setCurPage(curPage);
+		page.setSearch(search);
+		page.setKeyword(keyword);
 		
 		model.addAttribute("page", service.notice_list(page));
 		
@@ -86,8 +89,11 @@ public class NoticeController {
 		//선택한 공지사항 정보 조회
 		service.notice_readcnt(id);		
 		
+		
 		model.addAttribute("vo", service.notice_detail(id));
+		model.addAttribute("page", page);
 		model.addAttribute("crlf", "\r\n");
+	
 		
 		return "notice/detail";
 	}
@@ -111,7 +117,7 @@ public class NoticeController {
 		return "notice/modify";
 	}
 	
-	//공지글 삭제
+	//공지글 삭제페이지로 이동
 	@RequestMapping("/delete.no")
 	public String delete(int id, HttpSession session) {
 		//첨부파일이 있는 글의 경우 디스크에서 첨부파일을 삭제
@@ -131,6 +137,7 @@ public class NoticeController {
 		return "redirect:list.no";
 	}
 	
+	//공지글 수정
 	@RequestMapping("/update.no")
 	public String update(NoticeVO vo, String attach, MultipartFile file, HttpSession session) {
 		
@@ -171,5 +178,30 @@ public class NoticeController {
 		
 		service.notice_update(vo);
 		return "redirect:detail.no?id="+ vo.getId();
+	}
+	
+	//공지글 답글 작성 화면 요청
+	@RequestMapping("reply.no")
+	public String reply(int id, Model model){
+		//원글 상세 정보를 DB에서 조회하여 답글 화면에 출력
+		model.addAttribute("vo", service.notice_detail(id));
+			
+		return "notice/reply";
+	}
+	
+	//답글 저장 처리
+	@RequestMapping("reply_insert.no")
+	public String reply_insert(NoticeVO vo, MultipartFile file, HttpSession session) {
+		// 첨부 파일이 있을 경우
+		if(!file.isEmpty()) {
+			vo.setFilename(file.getOriginalFilename());
+			vo.setFilepath(common.fileupload("notice", file, session));
+		}
+		
+		//로그인 된 사용자의 id를 가져와 글쓴이에 담기 위한 처리
+		vo.setWriter(((MemberVO) session.getAttribute("loginInfo")).getId() );
+		service.notice_reply_insert(vo);
+		
+		return "redirect:list.no";
 	}
 }
