@@ -87,7 +87,7 @@ input {
 }
 
 input {
-	height: 22px;
+	height: 26px;
 	padding: 3px 5px;
 	font-size: 15px;
 	border: 1px solid #b0b0b0; 	
@@ -121,10 +121,16 @@ input[type=radio] {
 	padding: 20px 10%;
 }
 
+#list-top div {
+	height: 36px;		
+}
+
 #list-top ul {margin: 0; display: flex;}
 #list-top ul li * {vertical-align: middle;}
 #list-top ul li {margin-right: 3px;}
 
+#list-top ul:first-child{float: left;}
+#list-top ul:last-child{float: right;}
 
 /* width 값을 class 로 등록하여 관리 */
 .w-pct80 {width : 80%}

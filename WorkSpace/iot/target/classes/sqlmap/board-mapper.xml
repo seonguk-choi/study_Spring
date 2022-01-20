@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper">
+
+	<!-- 전체 게시글 수 조회 -->
+	<select id="totalList" resultType="Integer">
+		select count(*) from board
+	</select>
+	
+	<!-- 전체 게시글 조회 -->
+	<select id="list" resultType="board.BoardVO">
+		select *
+		from ( select rownum no, n.*, (select name from member where id = n.writer) name from (select * from board order by root, step desc) n order by no desc)
+		where no between #{beginList} and #{endList}
+	</select>
+	
+	
+</mapper>

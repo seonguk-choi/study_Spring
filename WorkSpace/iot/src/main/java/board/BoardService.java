@@ -1,0 +1,23 @@
+package board;
+
+public interface BoardService {
+	
+	// 방명록 글 신규 저장 (C)
+	int board_insert(BoardVO vo);
+	
+	// 방명록 글 목록 조회 - 페이지 처리된  (R)
+	BoardPage board_list(BoardPage page);
+	
+	// 방명록 글 상세 조회  (R)
+	BoardVO board_detail(int id);
+	
+	// 방명록 글 조회수 처리  (U)
+	int board_read(int id);
+	
+	// 방명록 글 변경 저장  (U)
+	int board_update(BoardVO vo);
+	
+	// 방명록 글 삭제  (D)
+	int board_delete(int id);
+
+}

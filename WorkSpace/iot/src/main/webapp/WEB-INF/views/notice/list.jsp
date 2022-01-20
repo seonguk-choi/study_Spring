@@ -52,7 +52,10 @@
 			<tr>
 				<td>${vo.no}</td>
 				<td class='left'>
-					<a href='detail.no?id=${vo.id}'>${vo.title}</a>
+					<c:forEach var='i' begin='1' end='${vo.indent}'>
+						${i eq vo.indent ? "<img src='imgs/re.gif'/>" : "&nbsp;&nbsp;"}
+					</c:forEach>
+						<a href='detail.no?id=${vo.id}'>${vo.title}</a>
 				</td>
 				<td>${vo.name}</td>
 				<td>${vo.writedate}</td>

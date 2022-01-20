@@ -12,8 +12,8 @@
 	
 	<!-- 게시판 등록 -->
 	<insert id="insert">
-		insert into notice (id, title, content, writer, filename, filepath) 
-		values (seq_notice.nextval, #{title}, #{content}, #{writer}, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR})
+		insert into notice (id, root, title, content, writer, filename, filepath) 
+		values (seq_notice.nextval, seq_notice.currval, #{title}, #{content}, #{writer}, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR})
 	</insert>
 	
 	<!-- 게시판 상세정보 -->
@@ -51,8 +51,8 @@
 	<!-- 공지글 리스트 페이지 처리 -->
 	<select id="listpage" resultType="notice.NoticeVO">
 		select *
-		from ( select rownum no, n.*, (select name from member where id = n.writer) name from (select * from notice <include refid="where_search"/> order by id) n order by no desc)
-		where no between #{beginList} and #{endList} 
+		from ( select rownum no, n.*, (select name from member where id = n.writer) name from (select * from notice <include refid="where_search"/> order by root, step desc) n order by no desc)
+		where no between #{beginList} and #{endList}
 	</select>
 	
 
@@ -78,10 +78,39 @@
 		</if>
 	</sql>
 	
-	<!-- 답글 저장 -->
+	<!-- 답글 저장 -->	 
 	<insert id="reply_insert">
-		insert into notice ()
-		values ()
-		where id =	#{id}
+		<!-- 
+		root : 원 글의 id를 root 로 그대로 담는다.
+		step : 동일한 root 를 갖는 글에 대해 원글의 step 보다 더 큰 step 을 가진 경우
+			   step +1 로 변경한 후 원글의 step+1 로 저장한다.
+		indent : 원글의 indent +1	   
+	 	-->
+	 
+	 	<!-- step -->
+	 	<!-- 오라클의 경우 여러 쿼리문을 작성할 경우 명령행을 구분하기 위하여 ; 을 붙인다 -->
+	 	<!-- 오라클은 myBatis에서 여러 행의 처리를 기본 지원하지 않음 그래서 프로그램을 작성해야 합니다 -->
+	 	<!-- 프로그램 선언한 부분을 중괄호로 묶어서 프로그램 지정 -->
+	 	<!-- 익명의 프로그램 호출하는데 선언 call declare : class -->
+		<!-- 실행부 begin end : { } -->
+		
+		<!--
+			쿼리문에 < > 등 부등호 기호를 태그 형태로 인식함
+			방지하기 위하여 CDATA 처리를 함 
+		-->
+	 	
+ 		{
+ 		call declare
+ 		begin	    
+	 		update notice set step = step+1 where root = #{root} and step <![CDATA[ > ]]> #{step};
+			 				 	
+			insert into notice (id, title, content, writer, filename, filepath, root, step, indent)
+			values (seq_notice.nextval, #{title}, #{content}, #{writer}, #{filename, jdbcType=VARCHAR}, #{filepath, jdbcType=VARCHAR}
+					, #{root}, #{step}+1, #{indent}+1);
+		end
+		}
 	</insert>
+	
+	
+	
 </mapper>

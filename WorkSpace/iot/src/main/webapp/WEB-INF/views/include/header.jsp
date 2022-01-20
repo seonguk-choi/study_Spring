@@ -30,9 +30,9 @@
 			<li><a href='<c:url value="/" />'> <img src="imgs/hanul.logo.png"></a></li>
 			<li><a href="list.cu" ${category eq 'cu' ? "class='active'" : '' } >고객관리</a></li>
 			<li><a href="list.hr" ${category eq 'hr' ? "class='active'" : '' } >사원정보</a></li>
-			<li><a href="list.no">공지사항</a></li>
-			<li><a href="list.bo">방명록</a></li>
-			<li><a href="list.da">공공 데이터</a></li>
+			<li><a href="list.no" ${category eq 'no' ? "class='active'" : '' }>공지사항</a></li>
+			<li><a href="list.bo" ${category eq 'bo' ? "class='active'" : '' }>방명록</a></li>
+			<li><a href="list.da" ${category eq 'da' ? "class='active'" : '' }>공공 데이터</a></li>
 		</ul>
 		<div style='position: absolute; right: 0; top: 20px; margin-right:200px;'>
 			<ul>

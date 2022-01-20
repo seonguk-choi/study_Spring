@@ -183,3 +183,45 @@ set writer = 'master'
 where mod(id,3) = 0;
 
 commit;
+
+--root, step, indent 추가
+alter table notice add (
+    root number null,
+    step number default 0,
+    indent number default 0
+);
+
+desc notice;
+
+select * from notice order by 1 desc;
+
+update notice set root = id;
+
+commit;
+
+--방명록 테이블
+create table board (
+    id          number constraint board_id_pk primary key,
+    title       varchar2(300) not null,
+    content     varchar2(4000) not null,
+    writer      varchar2(50) not null constraint board_writer_fk references member(id) on DELETE cascade,
+    writedate   date    defualt sysdate,
+    readcnt     number default 0,
+    filename    varchar2(300),
+    filepath    varchar2(500)
+);
+
+--시퀀스 생성
+create sequence seq_board
+start with 1
+increment by 1;
+
+--트리거 생성
+create or replace trigger trg_board
+    before insert on board
+begin
+    select seq_board.nextval into : new.id from dual;
+end;
+
+-- 시퀀스를 조회하여 id 값에 담음
+-- 조회한 데이터를 저장할 때
