@@ -205,7 +205,7 @@ create table board (
     title       varchar2(300) not null,
     content     varchar2(4000) not null,
     writer      varchar2(50) not null constraint board_writer_fk references member(id) on DELETE cascade,
-    writedate   date    defualt sysdate,
+    writedate   date    default sysdate,
     readcnt     number default 0,
     filename    varchar2(300),
     filepath    varchar2(500)
@@ -217,11 +217,37 @@ start with 1
 increment by 1;
 
 --트리거 생성
+
+-- 시퀀스를 조회하여 id 값에 담음
+-- 조회한 데이터를 저장할 때
+-- 모든 행에 대해 적용
 create or replace trigger trg_board
     before insert on board
+    for each row
 begin
     select seq_board.nextval into : new.id from dual;
 end;
 
--- 시퀀스를 조회하여 id 값에 담음
--- 조회한 데이터를 저장할 때
+--방명록 생성
+
+begin
+for i in 1..700 loop
+insert into board (title, content, writer)
+values ('a'||SEQ_NOTICE.nextval, 'a'||SEQ_NOTICE.nextval, 'hanul');
+end loop;
+end;
+
+commit;
+
+update board
+set writer = 'master'
+where mod(id,3) = 0;
+
+commit;
+
+
+update board
+set writer = '234523'
+where mod(id,4) = 0;
+
+commit;

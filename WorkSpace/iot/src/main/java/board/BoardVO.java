@@ -1,22 +1,24 @@
 package board;
 
+import java.sql.Date;
+
 public class BoardVO {
-	private int		id			;
-	private int 	no			;
-	private String	title		;
-	private String	content		;
-	private String	writer		;
-	private String	writedate	;
-	private int		readcnt		;
-	private String	filename	;
-	private String	filepath	;
-	private String	name		;
+
+	private int id, readcnt, no;
+	private String title, content, writer, filename, filepath, name;
+	private Date writedate;
 	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getReadcnt() {
+		return readcnt;
+	}
+	public void setReadcnt(int readcnt) {
+		this.readcnt = readcnt;
 	}
 	public int getNo() {
 		return no;
@@ -42,18 +44,6 @@ public class BoardVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getWritedate() {
-		return writedate;
-	}
-	public void setWritedate(String writedate) {
-		this.writedate = writedate;
-	}
-	public int getReadcnt() {
-		return readcnt;
-	}
-	public void setReadcnt(int readcnt) {
-		this.readcnt = readcnt;
-	}
 	public String getFilename() {
 		return filename;
 	}
@@ -72,8 +62,12 @@ public class BoardVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+	public Date getWritedate() {
+		return writedate;
+	}
+	public void setWritedate(Date writedate) {
+		this.writedate = writedate;
+	}
 	
 	
 }

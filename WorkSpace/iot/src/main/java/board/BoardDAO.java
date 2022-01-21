@@ -7,23 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import notice.NoticeVO;
+
 @Repository
 public class BoardDAO implements BoardService {
 
-	@Autowired @Qualifier("hanul") private SqlSession sql;
+	@Autowired @Qualifier("hanul") SqlSession sql;
 	
 	@Override
 	public int board_insert(BoardVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sql.insert("board.mapper.insert", vo);
 	}
 
 	@Override
 	public BoardPage board_list(BoardPage page) {
-		//전체 게시글 수 조회
-		page.setTotalList((Integer) sql.selectOne("board.mapper.totalList", page));
-	
-		List<BoardVO> list = sql.selectList("board.mapper.listpage", page);
+		// 전체 게시글 수 조회
+		int pagecnt =sql.selectOne("board.mapper.totalList", page);
+		page.setTotalList(pagecnt);
+		
+		// 페이징 처리된 전체 게시글 목록 조회
+		List<BoardVO> list = sql.selectList("board.mapper.list", page);
 		page.setList(list);
 		return page;
 	}

@@ -7,15 +7,18 @@ import org.springframework.stereotype.Component;
 import common.PageVO;
 
 @Component
-public class BoardPage extends PageVO {
+public class BoardPage extends PageVO{
+
 	private List<BoardVO> list;
 	
+
 	public List<BoardVO> getList() {
 		return list;
 	}
 
 	public void setList(List<BoardVO> list) {
 		this.list = list;
-	}	
-}	
+	}
 	
+	
+}

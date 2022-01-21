@@ -117,6 +117,15 @@ input[type=radio] {
 
 .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
 
+#preview {
+	height: 36px;
+	display: inline-block;
+}
+
+#preview-img {
+	max-height: 34px;
+}
+
 #list-top {
 	padding: 20px 10%;
 }
