@@ -39,6 +39,17 @@
 	</sql>
 	<sql id='search_writer'>
 		writer in (select id from member where name like '%'||#{keyword}||'%')
-	</sql>	
+	</sql>
+		
+	<!-- 해당 방명록 상세 조회 -->
+	<select id="detail" resultType="board.BoardVO">
+		select b.*, (select name from member where id = b.writer) name from board b where id = #{id}
+	</select>	
+		
+	<!-- 조회수 증가 -->
+	<update id="read">
+		update board set readcnt= readcnt +1
+		where id = #{id}
+	</update>		
 		
 </mapper>

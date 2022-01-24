@@ -11,8 +11,15 @@ public class PageVO {
 	int curBlock;			// 현재 블럭
 	int beginPage, endPage;	// 각 블럭에 보여질 시작, 끝 페이지 번호
 	String search, keyword;	// 검색 조건, 검색어
+	String viewType = "list";
 	
 	
+	public String getViewType() {
+		return viewType;
+	}
+	public void setViewType(String viewType) {
+		this.viewType = viewType;
+	}
 	public String getSearch() {
 		return search;
 	}

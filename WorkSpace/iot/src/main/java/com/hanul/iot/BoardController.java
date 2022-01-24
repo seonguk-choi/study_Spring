@@ -1,12 +1,15 @@
 package com.hanul.iot;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import board.BoardPage;
@@ -27,8 +30,11 @@ public class BoardController {
 	
 	// 방명록 목록화면 요청
 	@RequestMapping ("/list.bo")
-	public String list(HttpSession session, @RequestParam (defaultValue = "1") int curPage, String search, String keyword,
-					   @RequestParam (defaultValue ="10")int pageList, Model model) {
+	public String list(HttpSession session, Model model
+						, @RequestParam (defaultValue = "1") int curPage, String search, String keyword
+						, @RequestParam (defaultValue ="10")int pageList
+						, @RequestParam(defaultValue="list") String viewType) {
+		
 		session.setAttribute("category", "bo");
 		
 		// DB에서 방명록 정보를 조회해와 목록화면에 출력
@@ -36,6 +42,7 @@ public class BoardController {
 		page.setSearch(search);
 		page.setKeyword(keyword);
 		page.setPageList(pageList);
+		page.setViewType(viewType);
 		
 		model.addAttribute("page", service.board_list(page));		
 		return "board/list";
@@ -72,8 +79,26 @@ public class BoardController {
 	
 	//방명록 상세 정보
 	@RequestMapping("/detail.bo")
-	public String detail(int id) {
+	public String detail(int id, Model model) {
+		
+		service.board_read(id);
+		
+		model.addAttribute("vo", service.board_detail(id));
+		model.addAttribute("crlf", "\r\n");
+		
+		
 		return "board/detail";
+	}
+	
+	//파일 다운로드
+	@RequestMapping("/download.bo")
+	public void download(int id, HttpSession session, HttpServletResponse response) {
+		// 첨부파일 조회
+		BoardVO vo = service.board_detail(id);
+		
+		// 다운로드
+		common.fileDonwload(vo.getFilename(), vo.getFilepath(), session, response);
+		
 	}
 	
 }

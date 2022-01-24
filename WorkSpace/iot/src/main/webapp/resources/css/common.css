@@ -14,13 +14,10 @@ a:link, a:visited {
 	color : #000;
 }
 
-ul {list-style: none; padding: 0;}
-
 #content {min-width: 1280px; min-height: 650px; height: 100%; padding :20px 0;}
 
-.left {text-align: left;}
-
-.right {text-align: right;}
+.left { text-align: left; }
+.right { text-align: right; }
 
 img {
 	vertical-align: middle;	/* 세로축 가운데 정렬 */	
@@ -43,8 +40,8 @@ table th, table td {
 }
 
 table th { background-color: #f6f6f6}
+table tr td a:hover, ul.grid li a:hover { font-weight: 700; color: red;}
 
-table tr td a:hover {font-weight: 700; color : red;}
 
 .btnSet { margin-top: 20px;}
 
@@ -60,16 +57,13 @@ a.btn-fill {
 	background-color: #3367d6;
 	color: #fff;
 }
-
 a.btn-fill-s {
-	font-size: 13px;
-	font-weight: bold;
-	padding: 1px 10px;
+	font-size: 13px; font-weight: bold; padding: 1px 10px;
 	border: 1px solid #c4dafc;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #022d72;
 	background: #b1cdfa;
-	color : #0000cd;
+	color : #0000cd; 
 }
 
 a.btn-empty {
@@ -79,67 +73,56 @@ a.btn-empty {
 
 a:hover { cursor: pointer;}
 
-input {
-	height: 22px;
-	padding: 3px 5px;
-	font-size: 15px;
-	border: 1px solid #b0b0b0;	
+input {	height: 26px;	padding: 3px 5px;
+	font-size: 15px;	
+	border: 1px solid #b0b0b0;
 }
-
-input {
-	height: 26px;
-	padding: 3px 5px;
-	font-size: 15px;
-	border: 1px solid #b0b0b0; 	
-}
-
+input[name=addr] { width: calc(100% - 24px) }
 input[name=title], textarea[name=content] {
 	width: calc(100% - 24px);
 }
-
-textarea {
-	border: 1px solid #b0b0b0; 
-	font-size: 15px;
-	padding: 10px;
-	height: 250px;
-	resize: none;
-}
-
+textarea { border: 1px solid #b0b0b0; font-size: 15px;
+		padding : 10px; height: 250px; resize: none;}
 input[type=file] {display: none;}
-
 input[type=radio] {
 	width: 18px;
 	margin: 0 5px 3px;
 	vertical-align: middle;
 }
+select { height: 34px; border: 1px solid #b0b0b0; padding: 0 5px; cursor: pointer;}
 
 .file-img {width: 20px;}
 
-.center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+.center { position: absolute; left:50%; top: 50%;
+			transform:translate(-50%, -50%); }
 
-#preview {
-	height: 36px;
-	display: inline-block;
-}
+#preview { height: 36px; display: inline-block;}
+#preview-img { max-height: 34px; }
 
-#preview-img {
-	max-height: 34px;
-}
+			
+ul {list-style: none; padding: 0;}
 
-#list-top {
-	padding: 20px 10%;
-}
+ul.grid { width: 80%; margin: 0 10%; display: inline-block; }
 
-#list-top div {
-	height: 36px;		
-}
+ul.grid li { float: left; width: 19%; height: 150px; margin: 20px 1.25% 0 0;
+				border: 1px solid #b0b0b0; box-sizing: border-box;}
 
-#list-top ul {margin: 0; display: flex;}
+ul.grid li:nth-child(5n) {margin-right: 0;}
+/* (5n) 5번째마다(n) 의미 */				
+				
+ul.grid li div {text-align: left; padding: 9px 10px;}
+ul.grid li div:nth-child(2) {padding: 0px 10px;}
+ul.grid li div:nth-child(1) {height: 65px;}
+
+
+
+#list-top { padding: 20px 10%;}
+#list-top div { height: 36px;}
+#list-top ul { margin: 0; display: flex;}
 #list-top ul li * {vertical-align: middle;}
-#list-top ul li {margin-right: 3px;}
-
-#list-top ul:first-child{float: left;}
-#list-top ul:last-child{float: right;}
+#list-top ul li { margin-left: 3px; }
+#list-top ul:first-child { float : left;}
+#list-top ul:last-child {float : right;}
 
 /* width 값을 class 로 등록하여 관리 */
 .w-pct80 {width : 80%}
