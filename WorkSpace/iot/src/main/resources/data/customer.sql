@@ -251,3 +251,32 @@ set writer = '234523'
 where mod(id,4) = 0;
 
 commit;
+
+
+--댓글 저장 테이블 생성
+create table board_comment (
+    id  number,
+    pid number,
+    writer  varchar2(20) not null,
+    content varchar2(4000) not null,
+    writedate date default sysdate,
+    constraint board_comment_pik_fk FOREIGN KEY(pid) references board(id) on delete cascade,
+    constraint board_comment_writer_fk FOREIGN KEY(writer) references member(id) on delete cascade
+);
+
+
+-- 댓글 id에 대한 시퀀스 생성
+create sequence seq_board_comment
+start with 1
+increment by 1;
+
+
+-- 댓글 id 시퀀스 자동 트리거
+create or replace trigger tig_board_comment
+    before insert on board_comment
+    for each row
+begin
+    select seq_board_comment.nextval into: new.id from dual;
+end;
+/
+
