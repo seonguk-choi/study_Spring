@@ -1,6 +1,5 @@
 package notice;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,10 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class NoticeDAO implements NoticeService{
-	
-	@Autowired @Qualifier("hanul") private SqlSession sql;
+public class NoticeDAO implements NoticeService {
 
+	@Autowired @Qualifier("hanul") private SqlSession sql;
 	@Override
 	public void notice_insert(NoticeVO vo) {
 		sql.insert("notice.mapper.insert", vo);
@@ -34,32 +32,25 @@ public class NoticeDAO implements NoticeService{
 	}
 
 	@Override
-	public void notice_readcnt(int id) {
-		sql.update("notice.mapper.readcnt", id);
-	}
-
-	@Override
 	public void notice_delete(int id) {
 		sql.delete("notice.mapper.delete", id);
-		
 	}
 
 	@Override
-	public void notice_modify(NoticeVO vo) {
-		// TODO Auto-generated method stub
-		
+	public void notice_read(int id) {
+		sql.update("notice.mapper.read", id);
 	}
 
 	@Override
 	public NoticePage notice_list(NoticePage page) {
-		//먼저 총 글의 개수를 구해야 페이지 처리 가능
+		// 먼저 총 글의 개수를 알아야 페이지 처리를 할 수 있기 때문에 
+		// 전체 글 개수를 조회
 		int pagecnt = sql.selectOne("notice.mapper.totalList", page);
-		page.setTotalList(pagecnt);
+		page.setTotalList(pagecnt); 	// 총 글의 수
 		
-		//전체글 조회
-		List<NoticeVO> list = sql.selectList("notice.mapper.listpage", page);
-		page.setList(list);
-		
+		// 전체 글을 조회하여 List<NoticeVO> 형태로 담음
+		List<NoticeVO> list = sql.selectList("notice.mapper.list", page);
+		page.setList(list);  // 페이지 처리된 목록을 담음
 		return page;
 	}
 
@@ -68,8 +59,12 @@ public class NoticeDAO implements NoticeService{
 		sql.insert("notice.mapper.reply_insert", vo);
 	}
 
-
-	
-	
-	
 }
+
+
+
+
+
+
+
+

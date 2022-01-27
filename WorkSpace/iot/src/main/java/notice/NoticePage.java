@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 
 import common.PageVO;
 
-//최상위 역할 하는 어노테이션
 @Component
 public class NoticePage extends PageVO{
-	
+
 	// 10건의 공지사항을 담을 필드를 선언
 	// 공지사항을 담을 Page에 대한 정보를 가진 PageVO를 통해 page관련 기능을 모두 상속받아 처리
 	private List<NoticeVO> list;
@@ -20,5 +19,6 @@ public class NoticePage extends PageVO{
 
 	public void setList(List<NoticeVO> list) {
 		this.list = list;
-	}		
+	}
+	
 }

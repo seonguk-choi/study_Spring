@@ -10,10 +10,11 @@ public interface BoardService {
 	int board_read(int id);			// 방명록 조회수 처리 (U)	
 	int board_update(BoardVO vo);	// 방명록 글 변경 저장 (U)
 	int board_delete(int id);		// 방명록 글 삭제 (D)
-
-	int board_comment_insert(BoardCommentVO vo);
-	int board_comment_update(BoardCommentVO vo);
-	int board_comment_delete(int id);
-	List<BoardCommentVO> board_comment_list(int pid);
 	
+	int board_comment_insert(BoardCommentVO vo);		// 방명록 댓글 신규저장 처리
+	int board_comment_update(BoardCommentVO vo);		// 방명록 댓글 변경저장 처리
+	int board_comment_delete(int id);					// 방명록 댓글 삭제 처리
+	List<BoardCommentVO> board_comment_list(int pid); 	// 방명록 댓글 목록 조회
+									// pid : 원 글의 id
+		
 }

@@ -10,7 +10,6 @@ import common.PageVO;
 public class BoardPage extends PageVO{
 
 	private List<BoardVO> list;
-	
 
 	public List<BoardVO> getList() {
 		return list;

@@ -1,18 +1,12 @@
 package notice;
 
-public class NoticeVO {   
-	private int	id  	;		
-	private int	no  	;		
-	private String	title   ;
-	private String	content	;	
-	private String	writer 	;	
-	private String	name 	;	
-	private String	writedate;	
-	private int		readcnt	;	
-	private String	filename;
-	private String	filepath;
-	private int		root, step, indent;
+import java.sql.Date;
+
+public class NoticeVO {
 	
+	private int id, readcnt, no, root, step, indent;
+	private String title, content, writer, filename, filepath, name;
+	private Date writedate;
 	
 	public int getRoot() {
 		return root;
@@ -32,11 +26,29 @@ public class NoticeVO {
 	public void setIndent(int indent) {
 		this.indent = indent;
 	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getReadcnt() {
+		return readcnt;
+	}
+	public void setReadcnt(int readcnt) {
+		this.readcnt = readcnt;
 	}
 	public String getTitle() {
 		return title;
@@ -56,18 +68,6 @@ public class NoticeVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getWritedate() {
-		return writedate;
-	}
-	public void setWritedate(String writedate) {
-		this.writedate = writedate;
-	}
-	public int getReadcnt() {
-		return readcnt;
-	}
-	public void setReadcnt(int readcnt) {
-		this.readcnt = readcnt;
-	}
 	public String getFilename() {
 		return filename;
 	}
@@ -80,19 +80,12 @@ public class NoticeVO {
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
-	public int getNo() {
-		return no;
+	public Date getWritedate() {
+		return writedate;
 	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setWritedate(Date writedate) {
+		this.writedate = writedate;
 	}
 	
-
-
+	
 }

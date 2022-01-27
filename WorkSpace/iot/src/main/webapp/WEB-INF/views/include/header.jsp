@@ -32,24 +32,30 @@
 			<li><a href="list.hr" ${category eq 'hr' ? "class='active'" : '' } >사원정보</a></li>
 			<li><a href="list.no" ${category eq 'no' ? "class='active'" : '' }>공지사항</a></li>
 			<li><a href="list.bo" ${category eq 'bo' ? "class='active'" : '' }>방명록</a></li>
-			<li><a href="list.da" ${category eq 'da' ? "class='active'" : '' }>공공 데이터</a></li>
+			<li><a href="list.da">공공 데이터</a></li>
 		</ul>
-		<div style='position: absolute; right: 0; top: 20px; margin-right:200px;'>
-			<ul>
-				<c:if test="${empty loginInfo}">
-					<li>					
+		<div style='position: absolute; right: 0; top: 20px; margin-right: 200px;'>
+		<ul>
+			<!-- 로그인하지 않은 상태 -->
+				<c:if test="${ empty loginInfo }">
+					<li>				
 						<a class='btn-fill' href='login'>로그인</a>
 						<a class='btn-fill' href='member'>회원가입</a>
 					</li>
 				</c:if>
-				<c:if test="${!empty loginInfo}">
-					<li>
-						<Strong>${loginInfo.name}</Strong> 님	
+			<!-- 로그인한 상태 -->
+				<c:if test="${ !empty loginInfo }">
+					<li>				
+						<strong>${loginInfo.name }</strong> 님 
 						<a class='btn-fill' href='logout'>로그아웃</a>
 					</li>
-				</c:if>					
-			</ul>	
+				</c:if>
+					
+		</ul>
+		
 		</div>
+		
+		
 	</div>
 </header>
 

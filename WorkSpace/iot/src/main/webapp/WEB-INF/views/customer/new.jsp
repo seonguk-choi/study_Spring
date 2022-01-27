@@ -6,8 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
-<div id = 'content'>
+<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" />
+<div id = 'content'> --%>
 <h3>신규 고객 입력</h3>
 	<form action="insert.cu" method="post">
 		<table>
@@ -35,7 +35,7 @@
 		<a class='btn-fill' onclick='$("form").submit()'>저장</a>
 		<a class='btn-empty'>취소</a>
 	</div>
-</div>
-<%-- <jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
+<%-- </div>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
 </body>
 </html>

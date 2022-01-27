@@ -11,7 +11,7 @@
 <div id='list-top'>
 <form action="list.bo" method="post">
 <input type="hidden" name="curPage" value="1" />
-<input type="hidden" name="id"/>
+<input type="hidden" name="id" />
 	<div>
 		<!-- 검색 처리 -->
 		<ul>
@@ -60,10 +60,7 @@
 			<li>
 				<div><a onclick='go_detail(${vo.id})'>${vo.title }</a></div>
 				<div>${vo.name }</div>
-				<div>
-					${vo.writedate } [${vo.readcnt}]
-					<span style="float: right;"> ${empty vo.filename ? '' : "<img src='imgs/attach.png' class='file-img'/>" }</span>
-				</div>
+				<div>${vo.writedate } [${vo.readcnt }] <span style="float: right;">${empty vo.filename ? '' : "<img src='imgs/attach.png' class='file-img' />" }</span> </div>
 			</li>
 		</c:forEach>
 	</ul>
@@ -106,13 +103,15 @@
 <div class='btnSet'>
 	<jsp:include page="/WEB-INF/views/include/page.jsp" />
 </div>
+
 <script type="text/javascript">
-function go_detail(id){
-	$('[name=id]').val(id);
-	$('form').attr('action', 'detail.bo');
-	$('form').submit();
-}
+	function go_detail(id) {
+		$('[name=id]').val(id);
+		$('form').attr('action', 'detail.bo');
+		$('form').submit();
+	}
 </script>
+
 </body>
 </html>
 

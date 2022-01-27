@@ -1,6 +1,7 @@
 package common;
 
 public class PageVO {
+
 	int	totalList;			// 총 글의 건수 (DB에서 조회해 온 전체 글수)
 	int totalPage;			// 총 페이지 수
 	int totalBlock;			// 총 블럭 수
@@ -11,8 +12,7 @@ public class PageVO {
 	int curBlock;			// 현재 블럭
 	int beginPage, endPage;	// 각 블럭에 보여질 시작, 끝 페이지 번호
 	String search, keyword;	// 검색 조건, 검색어
-	String viewType = "list";
-	
+	private String viewType ="list";	// 게시판 형태 (기본 : 목록형태)
 	
 	public String getViewType() {
 		return viewType;
@@ -124,7 +124,6 @@ public class PageVO {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	
 	
 	
 }

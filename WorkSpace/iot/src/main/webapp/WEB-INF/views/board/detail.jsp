@@ -52,6 +52,16 @@
 			</c:if>
 		</td>
 	</tr>
+	<tr>
+		<td class='left' colspan="6">
+			<c:if test="${vo.prev ne 0}">
+				<a href='detail.bo?id=${vo.prev}'>[ 이전 글] ${vo.prev_title }</a><br />
+			</c:if>
+			<c:if test="${vo.next ne 0}">
+				<a href='detail.bo?id=${vo.next}'>[ 다음 글] ${vo.next_title }</a>
+			</c:if>
+		</td>
+	</tr>
 </table>
 
 <div class='btnSet'>

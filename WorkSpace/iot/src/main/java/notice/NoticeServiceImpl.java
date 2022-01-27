@@ -1,6 +1,5 @@
 package notice;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-	
-	@Autowired private NoticeDAO dao;
 
+	@Autowired private NoticeDAO dao;
 	@Override
 	public void notice_insert(NoticeVO vo) {
 		dao.notice_insert(vo);
@@ -32,18 +30,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void notice_readcnt(int id) {
-		dao.notice_readcnt(id);
-	}
-
-	@Override
 	public void notice_delete(int id) {
 		dao.notice_delete(id);
 	}
 
 	@Override
-	public void notice_modify(NoticeVO vo) {
-
+	public void notice_read(int id) {
+		dao.notice_read(id);
 	}
 
 	@Override
@@ -53,11 +46,16 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void notice_reply_insert(NoticeVO vo) {
-		dao.notice_reply_insert(vo);
+		dao.notice_reply_insert(vo);		
 	}
 
-
-
-
-
 }
+
+
+
+
+
+
+
+
+

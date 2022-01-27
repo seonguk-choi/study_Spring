@@ -8,5 +8,4 @@ public interface EmployeeService {
 	
 	// 사원 상세정보 조회
 	EmployeeVO employee_detail(int id);
-	
 }

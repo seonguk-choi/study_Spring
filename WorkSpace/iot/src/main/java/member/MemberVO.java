@@ -1,21 +1,9 @@
 package member;
 
 public class MemberVO {
-	private String  id		;  
-	private String  name	;
-	private String  pw	    ;
-	private String  addr	;
-	private String  post	;
-	private String  tel 	;
-	private String  gender  ; 
-	private String  email	;
-	private String  birth   ;
-	private String  naver   ;  
-	private String  kakao   ;
-	private String  admin	;
-	private String  social_type	;
-	private String  social_email;
-	
+	private String name, id, pw, addr, tel, gender, email, birth;
+	private String post, naver, kakao, admin;
+	private String social_type, social_email;
 	
 	public String getSocial_type() {
 		return social_type;
@@ -35,17 +23,17 @@ public class MemberVO {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPw() {
 		return pw;
@@ -58,12 +46,6 @@ public class MemberVO {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
-	}
-	public String getPost() {
-		return post;
-	}
-	public void setPost(String post) {
-		this.post = post;
 	}
 	public String getTel() {
 		return tel;
@@ -89,6 +71,12 @@ public class MemberVO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	public String getPost() {
+		return post;
+	}
+	public void setPost(String post) {
+		this.post = post;
+	}
 	public String getNaver() {
 		return naver;
 	}
@@ -103,5 +91,5 @@ public class MemberVO {
 	}
 	
 	
-
+	
 }

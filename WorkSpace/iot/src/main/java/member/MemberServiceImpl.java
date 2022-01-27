@@ -7,19 +7,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	
-	@Autowired private MemberDAO dao;
 
+	@Autowired private MemberDAO dao;
+	
 	@Override
 	public boolean member_join(MemberVO vo) {
+		// TODO Auto-generated method stub
 		return dao.member_join(vo);
 	}
 
-	@Override
-	public MemberVO member_login(HashMap<String, String> map) {
-		return dao.member_login(map);
-	}
-
+	
 
 	@Override
 	public boolean member_update(MemberVO vo) {
@@ -39,23 +36,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean member_socail_email(MemberVO vo) {
-		
-		return dao.member_socail_email(vo);
+	public MemberVO member_login(HashMap<String, String> map) {
+		return dao.member_login(map);
 	}
 
+
+
 	@Override
-	public boolean member_socail_insert(MemberVO vo) {
-		// 소셜회원정보 신규저장Create
-		return dao.member_socail_insert(vo);
+	public boolean member_social_email(MemberVO vo) {
+		return dao.member_social_email(vo);
 	}
+
+
+
+	@Override
+	public boolean member_social_insert(MemberVO vo) {
+		// 소셜회원정보 신규저장(C)
+		return dao.member_social_insert(vo);
+	}
+
+
 
 	@Override
 	public boolean member_social_update(MemberVO vo) {
-		// 소셜회원 정보 변경 저장 Update
+		// 소셜회원 정보 변경 저장(U)
 		return dao.member_social_update(vo);
 	}
-
-
 
 }

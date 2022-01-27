@@ -6,8 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
-<div id = 'content'>
+<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" />
+<div id = 'content'> --%>
 	<h3>${vo.name } 님의 고객 정보</h3>
 	<table class='w-pct60'>
 		<tr>
@@ -31,8 +31,8 @@
 		onclick="if ( confirm('정말 삭제하시겠습니까?') ) 
 		{ href='delete.cu?id=${vo.id }'}  alert('삭제되었습니다.') ">삭제</a>
 	</div>
-</div>
-<%-- <jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
+<%-- </div>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
 </body>
 </html>
 

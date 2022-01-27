@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
-<div id = 'content'>
+<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" />
+<div id = 'content'> --%>
 	<h3>고객 목록</h3>
 	<table>
 		<tr>
@@ -24,7 +24,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-</div>
-<%-- <jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
+<%-- </div>
+<jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
 </body>
 </html>

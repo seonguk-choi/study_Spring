@@ -1,6 +1,7 @@
 package board;
 
 public class BoardCommentVO {
+	
 	private int id, pid;
 	private String content, writer, name, writedate;
 	
