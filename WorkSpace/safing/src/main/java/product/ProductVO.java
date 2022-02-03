@@ -1,11 +1,16 @@
 package product;
 
+import java.text.DecimalFormat;
+
 public class ProductVO {
 	private int		product_num 	;
 	private String	product_name	;
 	private int		product_price	;
 	private int		product_stock	;
-	private String	product_date	;
+	private double	rating			;
+	private int		re_count		;
+	private String	tag_key			;
+	private String  file_path		;
 	
 	public int getProduct_num() {
 		return product_num;
@@ -31,13 +36,32 @@ public class ProductVO {
 	public void setProduct_stock(int product_stock) {
 		this.product_stock = product_stock;
 	}
-	public String getProduct_date() {
-		return product_date;
+	
+	public double getRating() {
+		return rating;
 	}
-	public void setProduct_date(String product_date) {
-		this.product_date = product_date;
+	public void setRating(double rating) {
+		this.rating = Math.round(rating * 100) / 100.0;
+	}
+	public int getRe_count() {
+		return re_count;
+	}
+	public void setRe_count(int re_count) {
+		this.re_count = re_count;
+	}
+	public String getTag_key() {
+		return tag_key;
+	}
+	public void setTag_key(String tag_key) {
+		this.tag_key = tag_key;
 	}
 	
-	
+	public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
 	
 }

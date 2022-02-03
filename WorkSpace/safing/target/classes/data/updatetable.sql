@@ -84,3 +84,53 @@ CREATE TRIGGER trg_order_state
 BEGIN
     SELECT seq_order_state.NEXTVAL INTO :NEW.order_state_num FROM dual;
 END;
+
+
+-- campinfo 수정
+
+DROP TABLE camping CASCADE CONSTRAINTS;
+
+desc campinfo;
+
+ALTER TABLE CAMPINFO ADD CONSTRAINT PK_campinfo_contentid primary key(contentid);
+
+
+--중복되는 데이터 확인
+select contentid,FACLTNM, count(*)
+from campinfo
+group by contentid, FACLTNM
+having count(*) >1;
+
+--중복 되는 데이터 조회
+SELECT R.*
+FROM ( SELECT RA.contentid, COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT
+        FROM campinfo RA) R
+WHERE R.CNT > 1;
+
+SELECT R.*
+FROM ( SELECT RA.contentid, 
+              COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT, 
+              RA.ROWID AS RID, 
+              MAX(RA.ROWID) over (partition by RA.contentid) AS MAX_RID 
+              FROM campinfo RA) R 
+WHERE R.CNT > 1 AND R.RID < R.MAX_RID;
+
+SELECT R.*
+FROM ( SELECT RA.contentid, 
+              COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT, 
+              RA.ROWID AS RID, 
+              ROW_NUMBER() OVER(PARTITION BY RA.contentid ORDER BY RA.ROWID DESC) AS RN 
+              FROM campinfo RA) R
+WHERE R.CNT > 1;
+
+DELETE FROM campinfo R 
+
+WHERE R.ROWID IN ( 
+                    SELECT RA.RID 
+                    FROM ( 
+                            SELECT RA.ROWID AS RID, 
+                                   ROW_NUMBER() OVER (PARTITION BY RA.contentid ORDER BY RA.ROWID DESC) AS RN 
+                            FROM campinfo RA ) RA 
+                    WHERE RA.RN > 1 );
+
+ALTER TABLE CAMPINFO ADD CONSTRAINT PK_campinfo_contentid primary key(contentid);

@@ -1,9 +1,17 @@
-package common;
+package product;
 
-public class CommonFileVO {
-	private String file_name	;  
-	private String file_path	;
+public class ImginsertVO {
+	String package_name;
+	String file_name;
+	String file_path;
 	
+	
+	public String getPackage_name() {
+		return package_name;
+	}
+	public void setPackage_name(String package_name) {
+		this.package_name = package_name;
+	}
 	public String getFile_name() {
 		return file_name;
 	}
@@ -17,6 +25,7 @@ public class CommonFileVO {
 		this.file_path = file_path;
 	}
 	
+
 	
 	
 }

@@ -29,6 +29,7 @@ desc board_comment;
 --product_review 수정
 ALTER TABLE review_product RENAME TO product_review;
 ALTER TABLE product_review DROP COLUMN review_image_num;
+ALTER TABLE product_review ADD rating number;
 
 desc product_review;
 
@@ -84,3 +85,114 @@ CREATE TRIGGER trg_order_state
 BEGIN
     SELECT seq_order_state.NEXTVAL INTO :NEW.order_state_num FROM dual;
 END;
+
+
+-- campinfo 수정
+
+DROP TABLE camping CASCADE CONSTRAINTS;
+
+desc campinfo;
+
+ALTER TABLE CAMPINFO ADD CONSTRAINT PK_campinfo_contentid primary key(contentid);
+
+
+--중복되는 데이터 확인
+select contentid,FACLTNM, count(*)
+from campinfo
+group by contentid, FACLTNM
+having count(*) >1;
+
+--중복 되는 데이터 조회
+SELECT R.*
+FROM ( SELECT RA.contentid, COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT
+        FROM campinfo RA) R
+WHERE R.CNT > 1;
+
+SELECT R.*
+FROM ( SELECT RA.contentid, 
+              COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT, 
+              RA.ROWID AS RID, 
+              MAX(RA.ROWID) over (partition by RA.contentid) AS MAX_RID 
+              FROM campinfo RA) R 
+WHERE R.CNT > 1 AND R.RID < R.MAX_RID;
+
+SELECT R.*
+FROM ( SELECT RA.contentid, 
+              COUNT(*) OVER(PARTITION BY RA.contentid) AS CNT, 
+              RA.ROWID AS RID, 
+              ROW_NUMBER() OVER(PARTITION BY RA.contentid ORDER BY RA.ROWID DESC) AS RN 
+              FROM campinfo RA) R
+WHERE R.CNT > 1;
+
+DELETE FROM campinfo R 
+
+WHERE R.ROWID IN ( 
+                    SELECT RA.RID 
+                    FROM ( 
+                            SELECT RA.ROWID AS RID, 
+                                   ROW_NUMBER() OVER (PARTITION BY RA.contentid ORDER BY RA.ROWID DESC) AS RN 
+                            FROM campinfo RA ) RA 
+                    WHERE RA.RN > 1 );
+
+ALTER TABLE CAMPINFO ADD CONSTRAINT PK_campinfo_contentid primary key(contentid);
+
+--product_package 수정
+ALTER TABLE product_package ADD file_name varchar2(1000);
+ALTER TABLE product_package ADD file_path varchar2(1000);
+
+desc product_package;
+
+CREATE SEQUENCE seq_product_package
+START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER trg_product_package
+    BEFORE INSERT ON product_package
+    FOR EACH ROW
+BEGIN
+    SELECT seq_product_package.NEXTVAL INTO :NEW.PACKAGE_NUM FROM dual;
+END;
+
+ALTER TABLE product_package modify PACKAGE_PRICE null;
+
+
+--product 수정
+ALTER TABLE product ADD product_kind varchar2(20);
+ALTER TABLE product modify product_date default sysdate;
+
+desc product;
+
+CREATE SEQUENCE seq_product
+START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER trg_product
+    BEFORE INSERT ON product
+    FOR EACH ROW
+BEGIN
+    SELECT seq_product.NEXTVAL INTO :NEW.product_num FROM dual;
+END;
+
+
+
+
+-- board_tag 수정
+CREATE SEQUENCE seq_board_tag
+START WITH 1 INCREMENT BY 1;
+
+CREATE TRIGGER trg_board_tag
+    BEFORE INSERT ON board_tag
+    FOR EACH ROW
+BEGIN
+    SELECT seq_board_tag.NEXTVAL INTO :NEW.tag_num FROM dual;
+END;
+
+select * from board_tag;
+
+
+-- order_result 수정
+ALTER TABLE order_result ADD review_check varchar2(3) default 'n';
+ALTER TABLE order_result ADD CONSTRAINT CK_review_check CHECK(review_check IN ( 'y' , 'n' ));
+
+desc order_result;
+
+
+

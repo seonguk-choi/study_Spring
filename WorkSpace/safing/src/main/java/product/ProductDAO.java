@@ -38,5 +38,32 @@ public class ProductDAO {
 		return sql.delete("product.mapper.delete", vo) == 1 ? true : false;
 	}
 	
+	//패키지 리스트
+	public List<Product_PackageVO> package_list(){
+		return sql.selectList("product.mapper.package_list");
+		
+	}
 	
+	//상품 리스트
+	public List<ProductVO> product_list(String search){
+		return sql.selectList("product.mapper.product_list", search);
+		
+	}
+	
+	//이미지등록
+	public boolean img_insert(ImginsertVO vo){
+		return sql.update("product.mapper.insert_img", vo)== 1 ? true : false;
+		
+	}
+	
+	//태그등록
+	public boolean tag_insert(TagVO vo){
+		return sql.update("product.mapper.insert_tag", vo)== 1 ? true : false;
+	}
+		
+	//상품등록
+	public boolean pro_insert(ProductinVO vo){
+		return sql.update("product.mapper.insert_pro", vo)== 1 ? true : false;
+		
+	}
 }

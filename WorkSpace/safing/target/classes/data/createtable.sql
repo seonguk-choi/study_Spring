@@ -172,7 +172,8 @@ CREATE TABLE address (
 	addr_num	NUMBER,
     addr_post	NUMBER	        NOT NULL,
 	addr_basic	VARCHAR2(100)	NOT NULL,
-	addr_detail	VARCHAR2(100)	NULL,	
+	addr_detail	VARCHAR2(100)	NULL,
+    addr_setting varchar2(3)    DEFAULT 'n',
     CONSTRAINT PK_addr_num PRIMARY KEY(addr_num)
 );
 

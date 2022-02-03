@@ -5,11 +5,12 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan base-package="address, board, camping, cart, common, member, product" />
+	<context:component-scan base-package="address, board, camping, cart, common, member, order, product" />
 	<import resource="classpath:data/default.xml" />
 	
 	<bean id="multipartResolver"
 	     class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8"/>
-	</bean>	
+	</bean>
 </beans>
+
